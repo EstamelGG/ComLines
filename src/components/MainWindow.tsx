@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from '../static/logo.svg';
 import '../static/App.css';
 import PersistedState from 'use-persisted-state';
@@ -18,13 +18,7 @@ const IconFont = createFromIconfontCN({
 
 const MainWindow = () => {
   const location = useLocation();
-  const useMenuIndex = PersistedState<string>('0');
-  const [defaultIndex, setIndex] = useMenuIndex('0');
-  console.log("current defaultIndex:" + defaultIndex);
-  console.log("type:" + typeof defaultIndex);
-  setIndex('1');
-  console.log("current defaultIndex:" + defaultIndex);
-  console.log("type:" + typeof defaultIndex);
+  const [defaultIndex, setDefaultIndex] = useState('0');
   interface IRouterComponent {
     key: string;
     icon: JSX.Element;
@@ -57,15 +51,17 @@ const MainWindow = () => {
       </a>
     </Menu.Item>
   ));
+  
+  useEffect(() => {
+    const currentTab = Tabs.find(tab => tab.path === location.pathname);
+    if (currentTab) {
+      setDefaultIndex(currentTab.key);
+    }
+    else {
+      setDefaultIndex('0');
+    }
+  }, [location.pathname, Tabs]);
 
-  console.log("defaultIndex:" + defaultIndex);
-  console.log("uri:" + location.pathname);
-  const currentTab = Tabs.find(tab => tab.path === location.pathname);
-  if (currentTab) {
-    console.log("currentTab:" + currentTab.key);
-    console.log("currentTab:" + typeof currentTab.key);
-    // setIndex(currentTab.key);
-  }
   return (
     <ConfigProvider>
       <Layout style={{ minHeight: '100vh' }}>
@@ -93,7 +89,11 @@ const MainWindow = () => {
           </div>
 
           <Menu theme='dark' defaultSelectedKeys={[defaultIndex]} mode='inline'>
-            {MenuItemsLists}
+          {Tabs.map((item) => (
+              <Menu.Item style={{ overflow: 'hidden' }} key={item.key} icon={item.icon}>
+                <Link to={item.path}>{item.name}</Link>
+              </Menu.Item>
+            ))}
           </Menu>
         </Sider>
         <Layout className='site-layout' style={{ marginLeft: 80 }}>
