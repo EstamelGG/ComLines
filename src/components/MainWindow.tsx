@@ -2,10 +2,13 @@ import React from 'react';
 import logo from '../static/logo.svg';
 import '../static/App.css';
 import PersistedState from 'use-persisted-state';
-import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider, Switch } from 'antd';
+import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
-
+import { Link, Route, Routes } from 'react-router-dom';
+import About from '../components/About';
+import About2 from '../components/About2';
+import internal from 'stream';
 
 const { Sider, Content } = Layout;
 const IconFont = createFromIconfontCN({
@@ -15,12 +18,19 @@ const IconFont = createFromIconfontCN({
 
 const MainWindow = () => {
   const location = useLocation();
-
+  const useMenuIndex = PersistedState<string>('0');
+  const [defaultIndex, setIndex] = useMenuIndex('0');
+  console.log("current defaultIndex:" + defaultIndex);
+  console.log("type:" + typeof defaultIndex);
+  setIndex('1');
+  console.log("current defaultIndex:" + defaultIndex);
+  console.log("type:" + typeof defaultIndex);
   interface IRouterComponent {
     key: string;
     icon: JSX.Element;
     name: string;
     path: string;
+    component: React.ComponentType<any>;
   }
 
   const Tabs: Array<IRouterComponent> = [
@@ -28,19 +38,15 @@ const MainWindow = () => {
       key: '0',
       icon: <IconFont type='icon-about' style={{ fontSize: '1.5em', marginTop: 3 }} />,
       name: 'About',
-      path: '/About'
+      path: '/About',
+      component: About
     },
     {
       key: '1',
-      icon: <IconFont type='icon-gnubash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-      name: 'Reverse Shell',
-      path: '/ReverseShell'
-    },
-    {
-      key: '2',
-      icon: <IconFont type='icon-php' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-      name: 'PHP Reverse Shell',
-      path: '/PhpReverseShell'
+      icon: <IconFont type='icon-about' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+      name: 'About2',
+      path: '/About2',
+      component: About2
     }
   ]
 
@@ -52,13 +58,12 @@ const MainWindow = () => {
     </Menu.Item>
   ));
 
-  const useMenuIndex = PersistedState<string>('tab_index_cache'); // Disabled for now
-  const [defaultIndex, setIndex] = useMenuIndex('0');
-  console.log("defaultIndex:"+defaultIndex);
-  console.log("uri:"+location.pathname);
+  console.log("defaultIndex:" + defaultIndex);
+  console.log("uri:" + location.pathname);
   const currentTab = Tabs.find(tab => tab.path === location.pathname);
   if (currentTab) {
-    console.log("currentTab:"+currentTab.key);
+    console.log("currentTab:" + currentTab.key);
+    console.log("currentTab:" + typeof currentTab.key);
     // setIndex(currentTab.key);
   }
   return (
@@ -99,6 +104,12 @@ const MainWindow = () => {
             padding: 14,
             borderRadius: 8
           }}>
+          <Routes>
+            {Tabs.map((tab) => (
+              <Route key={tab.key} path={tab.path} element={<tab.component />} />
+            ))}
+            <Route path="*" element={<About />} />
+          </Routes>
           </Content>
         </Layout>
       </Layout >
