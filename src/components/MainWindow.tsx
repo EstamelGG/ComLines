@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../static/logo.svg';
 import '../static/App.css';
 import PersistedState from 'use-persisted-state';
@@ -51,14 +51,16 @@ const MainWindow = () => {
       </a>
     </Menu.Item>
   ));
-  
+
   useEffect(() => {
     const currentTab = Tabs.find(tab => tab.path === location.pathname);
     if (currentTab) {
       setDefaultIndex(currentTab.key);
+      console.info("set " + currentTab.key)
     }
     else {
       setDefaultIndex('0');
+      console.info("default 0")
     }
   }, [location.pathname, Tabs]);
 
@@ -89,11 +91,7 @@ const MainWindow = () => {
           </div>
 
           <Menu theme='dark' defaultSelectedKeys={[defaultIndex]} mode='inline'>
-          {Tabs.map((item) => (
-              <Menu.Item style={{ overflow: 'hidden' }} key={item.key} icon={item.icon}>
-                <Link to={item.path}>{item.name}</Link>
-              </Menu.Item>
-            ))}
+            {MenuItemsLists}
           </Menu>
         </Sider>
         <Layout className='site-layout' style={{ marginLeft: 80 }}>
@@ -104,12 +102,12 @@ const MainWindow = () => {
             padding: 14,
             borderRadius: 8
           }}>
-          <Routes>
-            {Tabs.map((tab) => (
-              <Route key={tab.key} path={tab.path} element={<tab.component />} />
-            ))}
-            <Route path="*" element={<About />} />
-          </Routes>
+            <Routes>
+              {Tabs.map((tab) => (
+                <Route key={tab.key} path={tab.path} element={<tab.component />} />
+              ))}
+              <Route path="*" element={<About />} />
+            </Routes>
           </Content>
         </Layout>
       </Layout >
