@@ -58,10 +58,6 @@ const MainWindow = () => {
       setDefaultIndex(currentTab.key);
       console.info("set " + currentTab.key)
     }
-    else {
-      setDefaultIndex('0');
-      console.info("default 0")
-    }
   }, [location.pathname, Tabs]);
 
   return (
