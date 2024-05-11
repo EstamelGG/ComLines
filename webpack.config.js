@@ -38,7 +38,27 @@ module.exports = {
 		new CopyWebpackPlugin({
 			patterns: [
 				{
-					from: './src/static/*',
+					from: './src/manifest.json',
+					to: './',
+					noErrorOnMissing: true
+				},
+				{
+					from: './src/assets/img/icons/*',
+					to: './',
+					noErrorOnMissing: true
+				},
+				{
+					from: './src/assets/icons/*',
+					to: './',
+					noErrorOnMissing: true
+				},
+				{
+					from: './src/devtools/*',
+					to: './',
+					noErrorOnMissing: true
+				},
+				{
+					from: './src/assets/img/icons/iconfont.js',
 					to: './',
 					noErrorOnMissing: true
 				}

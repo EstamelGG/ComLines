@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MainWindow from './components/MainWindow';
-import './static/style.css';
+import './assets/css/style.css';
 
 function App() {
   return (
