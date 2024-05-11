@@ -26,3 +26,9 @@ jobs:
       run: |
         npm install --force
         npx webpack
+        
+    - name: Deploy
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        folder: dist
+        clean: true
