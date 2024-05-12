@@ -3,8 +3,7 @@ import '../static/App.css';
 import PersistedState from 'use-persisted-state';
 import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
-import { useLocation } from 'react-router-dom';
-import { Link, Route, Routes } from 'react-router-dom';
+import { useLocation, Navigate, Outlet, Link, Route, Routes } from 'react-router-dom';
 import About from '../components/About';
 import About2 from '../components/About2';
 import internal from 'stream';
@@ -13,7 +12,6 @@ const { Sider, Content } = Layout;
 const IconFont = createFromIconfontCN({
   scriptUrl: ['./iconfont.js']
 });
-
 
 const MainWindow = () => {
 
@@ -56,9 +54,9 @@ const MainWindow = () => {
 
   const MenuItemsLists = Tabs.map((item) => (
     <Menu.Item style={{ overflow: 'hidden' }} key={item.key} icon={item.icon}>
-      <a href={item.path}>
+      <Link to={item.path}>
         {item.name}
-      </a>
+      </Link>
     </Menu.Item>
   ));
 
@@ -105,6 +103,7 @@ const MainWindow = () => {
               ))}
               <Route path="*" element={<About />} />
             </Routes>
+            <Outlet /> {/* 渲染子路由 */}
           </Content>
         </Layout>
       </Layout >
