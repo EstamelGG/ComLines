@@ -9,6 +9,5 @@ yarn-error.log
 .scannerwork
 .vscode
 .idea
-.github
 pnpm-lock.yaml
 bundle*.zip
