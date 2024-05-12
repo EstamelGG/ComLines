@@ -7,38 +7,12 @@ import { useLocation, Navigate, Outlet, Link, Route, Routes } from 'react-router
 import About from '../components/About';
 import ReverseShell from '../components/revShell/ReverseShell';
 import internal from 'stream';
+import { Tabs } from './RouterTabs';
 
 const { Sider, Content } = Layout;
-const IconFont = createFromIconfontCN({
-  scriptUrl: ['./iconfont.js']
-});
 
 const MainWindow = () => {
 
-  interface IRouterComponent {
-    key: string;
-    icon: JSX.Element;
-    name: string;
-    path: string;
-    component: React.ComponentType<any>;
-  }
-
-  const Tabs: Array<IRouterComponent> = [
-    {
-      key: '0',
-      icon: <IconFont type='icon-about' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-      name: 'About',
-      path: '/About',
-      component: About
-    },
-    {
-      key: '1',
-      icon: <IconFont type='icon-gnubash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-      name: 'Reverse Shell',
-      path: '/RevShell',
-      component: ReverseShell
-    }
-  ]
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState(() => {
     const currentTab = Tabs.find(tab => tab.path === location.pathname);
