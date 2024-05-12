@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../static/App.css';
-import PersistedState from 'use-persisted-state';
-import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider } from 'antd';
-import { createFromIconfontCN } from '@ant-design/icons';
-import { useLocation, Navigate, Outlet, Link, Route, Routes } from 'react-router-dom';
+import { Layout, Menu, ConfigProvider } from 'antd';
+import { useLocation, Outlet, Link, Route, Routes } from 'react-router-dom';
 import About from '../components/About';
-import ReverseShell from '../components/revShell/ReverseShell';
-import internal from 'stream';
 import { Tabs } from './RouterTabs';
 
 const { Sider, Content } = Layout;
