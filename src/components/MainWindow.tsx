@@ -5,7 +5,7 @@ import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider } from 
 import { createFromIconfontCN } from '@ant-design/icons';
 import { useLocation, Navigate, Outlet, Link, Route, Routes } from 'react-router-dom';
 import About from '../components/About';
-import About2 from '../components/About2';
+import ReverseShell from '../components/revShell/ReverseShell';
 import internal from 'stream';
 
 const { Sider, Content } = Layout;
@@ -33,10 +33,10 @@ const MainWindow = () => {
     },
     {
       key: '1',
-      icon: <IconFont type='icon-about' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-      name: 'About2',
-      path: '/About2',
-      component: About2
+      icon: <IconFont type='icon-gnubash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+      name: 'Reverse Shell',
+      path: '/RevShell',
+      component: ReverseShell
     }
   ]
   const location = useLocation();

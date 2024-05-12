@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Divider } from 'antd';
 
 const { Title, Paragraph, Link } = Typography;
 
 export default function About2 () {
+    const params = new URLSearchParams(window.location.hash.substring(1));
+    const param1 = params.get("param1");
+    const param2 = params.get("param2");
     return (
         <div>
             <Title
@@ -13,7 +16,7 @@ export default function About2 () {
                     margin: 15
                 }}
             >
-                About us 2
+                About {param1}
             </Title>
             <Paragraph
                 style={{
