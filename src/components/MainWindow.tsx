@@ -16,8 +16,7 @@ const IconFont = createFromIconfontCN({
 
 
 const MainWindow = () => {
-  const location = useLocation();
-  const [defaultIndex, setDefaultIndex] = useState('0');
+
   interface IRouterComponent {
     key: string;
     icon: JSX.Element;
@@ -42,6 +41,18 @@ const MainWindow = () => {
       component: About2
     }
   ]
+  const location = useLocation();
+  const [selectedKey, setSelectedKey] = useState(() => {
+    const currentTab = Tabs.find(tab => tab.path === location.pathname);
+    return currentTab ? currentTab.key : '0'; // Default to '0' if no matching path
+  });
+
+  useEffect(() => {
+    const currentTab = Tabs.find(tab => tab.path === location.pathname);
+    if (currentTab) {
+      setSelectedKey(currentTab.key);
+    }
+  }, [location.pathname]);
 
   const MenuItemsLists = Tabs.map((item) => (
     <Menu.Item style={{ overflow: 'hidden' }} key={item.key} icon={item.icon}>
@@ -50,14 +61,6 @@ const MainWindow = () => {
       </a>
     </Menu.Item>
   ));
-
-  useEffect(() => {
-    const currentTab = Tabs.find(tab => tab.path === location.pathname);
-    if (currentTab) {
-      setDefaultIndex(currentTab.key);
-      console.info("set " + currentTab.key)
-    }
-  }, [location.pathname, Tabs]);
 
   return (
     <ConfigProvider>
@@ -84,8 +87,7 @@ const MainWindow = () => {
               </g>
             </svg>
           </div>
-
-          <Menu theme='dark' defaultSelectedKeys={[defaultIndex]} mode='inline'>
+          <Menu theme='dark' selectedKeys={[selectedKey]} mode='inline'>
             {MenuItemsLists}
           </Menu>
         </Sider>
