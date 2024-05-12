@@ -24,9 +24,6 @@
       ]
     }
   },
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "off",
-  },
   "include": [
     "./src/**/**/*"
 , "public/iconfont.js"  ]
