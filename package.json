@@ -1,7 +1,7 @@
 {
   "name": "com_lines",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "/ComLines",
   "private": true,
   "dependencies": {
     "@ant-design/compatible": "^5.1.2",

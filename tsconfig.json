@@ -11,6 +11,7 @@
     "baseUrl": "src",
     "sourceMap": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "target": "es6",
     "paths": {
       "compforms": [
