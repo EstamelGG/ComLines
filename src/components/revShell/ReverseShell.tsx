@@ -79,6 +79,9 @@ export default function ReverseShell() {
 
     const handleChangeSelect = (prop: string) => (data: any) => {
         setValues({ ...values, [prop]: data });
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        params.set(prop, data);
+        window.location.hash = '#' + params.toString();
     };
 
     const [filteredInfo, setFilteredInfo] = useState<Record<string, FilterValue | null>>({});
