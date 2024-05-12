@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../static/logo.svg';
 import '../static/App.css';
 import PersistedState from 'use-persisted-state';
 import { Layout, Menu, Typography, theme, Button, Select, ConfigProvider } from 'antd';
@@ -12,7 +11,7 @@ import internal from 'stream';
 
 const { Sider, Content } = Layout;
 const IconFont = createFromIconfontCN({
-  scriptUrl: ['https://estamelgg.github.io/hack-tools-html/iconfont.js']
+  scriptUrl: ['./iconfont.js']
 });
 
 
