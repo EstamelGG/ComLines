@@ -24,6 +24,7 @@ i18n
           functionLinks: [
             {'title': 'Reverse Shell', 'link': '../RevShell'},
             {'title': 'PHP WebShell', 'link': '../PHPWebShell'},
+            {'title': 'Respawn TTY Shell', 'link': '../SpawnTTY'},
             {'title': 'Obfuscated Files or Information', 'link': '../FileEncodeTrans'},
             {'title': 'MSFVenom Builder', 'link': '../MSFVenom'},
           ],
@@ -98,6 +99,7 @@ i18n
           functionLinks: [
             {'title': '反弹 Shell', 'link': '../RevShell'},
             {'title': 'PHP WebShell', 'link': '../PHPWebShell'},
+            {'title': '升级 Linux 交互式 Shell (TTY)', 'link': '../SpawnTTY'},
             {'title': '文件与信息混淆', 'link': '../FileEncodeTrans'},
             {'title': 'MSFVenom 命令行构造', 'link': '../MSFVenom'},
           ],
