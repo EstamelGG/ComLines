@@ -5,6 +5,7 @@ import ReverseShell from './revShell/ReverseShell';
 import PHPWebShell from './revShell/PHPWebShell';
 import FileEncodeTrans from './file_transfer/ObfuscatedFiles';
 import MSFVenom from './msfvenom/MSFBuilder'
+import SpawnTTY from './linux_terminal/TtySpawnShell'
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['./iconfont.js']
@@ -39,6 +40,13 @@ const Tabs: Array<IRouterComponent> = [
     name: 'PHP WebShell',
     path: '/PHPWebShell',
     component: PHPWebShell
+  },
+  {
+    key: '4',
+    icon: <IconFont type='icon-lvzhou_yuanchengTelnet' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'TTY Shell',
+    path: '/SpawnTTY',
+    component: SpawnTTY
   },
   {
     key: '11',

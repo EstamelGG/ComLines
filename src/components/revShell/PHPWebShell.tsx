@@ -15,7 +15,7 @@ import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import pretty from 'pretty';
 // i18n
 import '../../i18n';
-import { useSSR, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 //
 import { useFetchTextFile } from '../utils/getFile'
 
