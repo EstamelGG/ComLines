@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "outDir": "./build/",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "es6",
+    "paths": {
+      "compforms": [
+        "compforms"
+      ],
+      "components": [
+        "components"
+      ],
+      "utils": [
+        "utils"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/**/*",
+    "public/iconfont.js"
+  ]
+}

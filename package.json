@@ -1,0 +1,71 @@
+{
+  "name": "com_lines",
+  "version": "0.1.0",
+  "homepage": "/ComLines",
+  "private": true,
+  "dependencies": {
+    "@ant-design/compatible": "^5.1.2",
+    "@ant-design/icons": "^5.3.7",
+    "@hot-loader/react-dom": "^17.0.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.97",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-router-dom": "^5.3.3",
+    "antd": "^5.17.0",
+    "antd-mask-input": "^2.0.7",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "crypto-js": "^4.2.0",
+    "escape-quotes": "^1.0.2",
+    "i18next": "^23.11.4",
+    "moment-timezone": "^0.5.45",
+    "pretty": "^2.0.0",
+    "react": "^18.3.1",
+    "react-clipboard.js": "^2.0.16",
+    "react-dom": "^18.3.1",
+    "react-highlight-words": "^0.20.0",
+    "react-i18next": "^14.1.1",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^4.9.5",
+    "use-persisted-state": "^0.3.3",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "COMPILATION_TIME=$(($(date +%s) * 1000)) && echo \"REACT_APP_COMPILATION_TIME=$COMPILATION_TIME\" > .env && react-scripts build && cp build/index.html build/404.html && rm -f ./build/static/js/*.map && rm -f ./build/static/css/*.map",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-highlight-words": "^0.16.7",
+    "@types/use-persisted-state": "^0.3.4"
+  }
+}

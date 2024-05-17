@@ -1,0 +1,13 @@
+/.git
+/node_modules
+/dist
+/build
+.DS_Store
+yarn.lock
+package-lock.json
+yarn-error.log
+.scannerwork
+.vscode
+.idea
+pnpm-lock.yaml
+bundle*.zip
