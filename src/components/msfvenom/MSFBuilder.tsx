@@ -296,11 +296,12 @@ const MSFVenom = () => {
     document.title = `${t('msfvenom_title')} - HackTrick Checklist`;
     return (
         <div>
-            <div style={{ margin: 15 }}>
-                <Title level={2} style={{ fontWeight: 'bold' }}>
-                    {t('msfvenom_title')}
-                </Title>
-                <Paragraph>
+            <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
+                {t('msfvenom_title')}
+            </Title>
+            <Paragraph style={{
+                    margin: 15
+                }}>
                     <div>
                         {paragraphs.map((paragraph, index) => (
                             <Paragraph key={index}>
@@ -309,7 +310,6 @@ const MSFVenom = () => {
                         ))}
                     </div>
                 </Paragraph>
-            </div>
             <Divider />
             <div
                 key='a'
@@ -362,9 +362,9 @@ const MSFVenom = () => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Clipboard component='a' data-clipboard-text={generateCommand(values)}>
                                 <Button
-                                type='primary'
-                                onClick={toPayloadCopy}
-                                disabled={!values.Payload || (values.Payload.length === 0)}
+                                    type='primary'
+                                    onClick={toPayloadCopy}
+                                    disabled={!values.Payload || (values.Payload.length === 0)}
                                 >
                                     <CopyOutlined /> {t('misc_copy')} Msfvenom
                                 </Button>

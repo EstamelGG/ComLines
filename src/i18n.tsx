@@ -10,7 +10,9 @@ i18n
         translation: {
           misc_encode: 'Encode',
           misc_decode: 'Decode',
+          misc_switch: 'Switch',
           misc_copy: 'Copy',
+          misc_calc: 'Calculate',
           misc_clear: 'Clear',
           misc_ref: "Reference",
           misc_add_custtom: 'Add Custom Params',
@@ -85,14 +87,24 @@ i18n
           tty_background: 'Finally (and most importantly) we will background the shell using',
           tty_background1: 'Back in our own terminal we use',
           tty_background2: 'This does two things: first, it turns off our own terminal echo which gives us access to tab autocompletes, the arrow keys, and Ctrl + C to kill processes',
+          data_encoder_title: 'Data Encoder',
+          data_encoder_desc: 'Adversaries may encode data to make the content of command and control traffic more difficult to detect. Command and control (C2) information can be encoded using a standard data encoding system. Use of data encoding may adhere to existing protocol specifications and includes use of ASCII, Unicode, Base64, MIME, or other binary-to-text and character encoding systems.Some data encoding systems may also result in data compression, such as gzip.',
+          hash_enerator_title: 'Hash generator',
+          hash_enerator_desc: 'A hash function is any function that can be used to map data of arbitrary size to fixed-size values. The values returned by a hash function are called hash values, hash codes, digests, or simply hashes.',
+          hash_enerator_reference: [
+            {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
+            {'title': 'crackstation', 'link': 'https://crackstation.net/'}
+          ],
         }
       },
       zh: {
         translation: {
           misc_encode: '编码',
           misc_decode: '解码',
+          misc_switch: '交换',
           misc_copy: '复制',
           misc_clear: '清除',
+          misc_calc: '计算',
           misc_ref: "参考",
           misc_add_custtom: '添加自定义参数',
           about: '关于',
@@ -167,6 +179,14 @@ i18n
           tty_background: '关键步骤：挂起当前进程，回到自己的终端',
           tty_background1: '回到自己的终端后执行以下命令',
           tty_background2: '敲几下回车，最终能够获取 tab 自动补全、方向键、Ctrl + C 杀死进程等终端能力。',
+          data_encoder_title: '编解码器',
+          data_encoder_desc: '本页提供了一些编码方式 (Base64、Hex、URL编码等)，可以帮助用户进行一些简单的编解码工作。',
+          hash_enerator_title: '哈希计算器',
+          hash_enerator_desc: 'Hash，一般翻译做散列、杂凑，或音译为哈希，是把任意长度的输入 (又叫做预映射pre-image) 通过散列算法变换成固定长度的输出，该输出就是散列值。',
+          hash_enerator_reference: [
+            {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
+            {'title': 'Crackstation', 'link': 'https://crackstation.net/'}
+          ],
         }
       }
     },
