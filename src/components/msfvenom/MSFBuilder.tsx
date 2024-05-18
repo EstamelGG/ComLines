@@ -8,6 +8,8 @@ import '../../i18n';
 import { useTranslation } from 'react-i18next';
 const { Title, Paragraph } = Typography;
 
+// Enum Payloads: msfvenom --list payloads | grep "/" | grep -oP '^[\s]+[a-zA-Z0-9_/]+' | awk '{print $1}' | jq -R -s -c 'split("\n") | map(select(length > 0)) | map({value: .})' > Payloads.json
+
 //http://localhost:3000/ComLines/MSFVenom#Payload=windows%2Fx64%2Fshell_reverse_tcp&Arch=x64&Format=exe&Outfile=rev.exe&PrependSetuid=1&PrependMigrate=1&CMD=calc.exe&PrependMigrateProc=svchost.exe&BadCharacters=%5Cx00&Platform=windows&Encoder=x86%2Fshikata_ga_nai&LPORT=9090&LHOST=1.2.3.4&customParams=AutoSystemInfo%3Dtrue+HttpServerName%3DNginx&NOP=100&EncoderIterations=5
 
 const MSFVenom = () => {
