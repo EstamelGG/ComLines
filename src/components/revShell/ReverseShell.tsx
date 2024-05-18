@@ -412,6 +412,7 @@ export default function ReverseShell() {
     });
     const rawText = t('revshell_desc',);
     const paragraphs = rawText.split('<br />');
+    document.title = `${t('revshell_title')} - HackTrick Checklist`;
     return (
         <div>
             {contextHolder}

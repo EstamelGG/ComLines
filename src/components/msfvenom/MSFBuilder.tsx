@@ -293,7 +293,7 @@ const MSFVenom = () => {
         setValues({ ...values, PrependMigrate: checked });
         window.location.hash = '#' + params.toString();
     };
-
+    document.title = `${t('msfvenom_title')} - HackTrick Checklist`;
     return (
         <div>
             <div style={{ margin: 15 }}>

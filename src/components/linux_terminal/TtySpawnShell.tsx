@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const { Title, Paragraph, Text, Link } = Typography;
 const { Panel } = Collapse;
+
 export default function TTY() {
     const { t } = useTranslation();
     const py_tty_command = `$(which python python2 python3 | head -n 1) -c 'import pty;pty.spawn("/bin/bash")'`;
@@ -14,6 +15,7 @@ export default function TTY() {
     const imageStyle = {
         maxWidth: '100%', // 图片最大宽度为100%
     };
+    document.title = `${t('tty_title')} - HackTrick Checklist`;
     return (
         <div>
             <div>

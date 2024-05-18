@@ -21,7 +21,6 @@ const FileEncodeTrans = () => {
     const [output, setOutput] = useState('');
     const [fileRaw, setFileRaw] = useState('');
     const [fileB64, setFileB64] = useState('');
-    const [fileHex, setFileHex] = useState('');
     const echoFileName = PersistedState<ObfuscatedFile>('echo_file_name');
     const { TextArea } = Input;
 
@@ -295,7 +294,7 @@ const FileEncodeTrans = () => {
     );
     const rawText = t('fileTrans_desc');
     const paragraphs = rawText.split('<br />');
-
+    document.title = `${t('fileTrans_title')} - HackTrick Checklist`;
     return (
         <div>
             <div>

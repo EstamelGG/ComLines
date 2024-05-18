@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PersistedState from 'use-persisted-state';
 import { Input, Button, message, Typography, Row, Col, Divider, Collapse } from 'antd';
 import {
@@ -174,6 +174,7 @@ export default function PHPWebShell() {
     @socket_close($s);
   }
   `;
+    document.title = `${t('php_webshell_title')} - HackTrick Checklist`;
     return (
         <div>
             {contextHolder}

@@ -17,7 +17,7 @@ export default function About() {
     //const rawTimeStamp = useFetchTextFile('./COMPILATION_TIME');
 
     const { t } = useTranslation();
-
+    document.title = `${t('about')} - HackTrick Checklist`;
     return (
         <div>
             <Title
@@ -73,6 +73,7 @@ export default function About() {
                 <Paragraph>- {t('aboutme0')} <Link href='https://chatgpt.com/' target='_blank'>ChatGPT</Link></Paragraph>
                 <Paragraph>- {t('aboutme1')} <Link href='https://github.com/EstamelGG/' target='_blank'>EstamelGG</Link></Paragraph>
                 <Paragraph>- {t('aboutme2')} <Link href='https://github.com/sakarie9' target='_blank'>sakarie9</Link></Paragraph>
+                <Paragraph>- Github repository: <Link href='https://github.com/EstamelGG/ComLines' target='_blank'>https://github.com/EstamelGG/ComLines</Link></Paragraph>
             </div>
         </div>
     );
