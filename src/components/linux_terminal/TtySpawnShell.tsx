@@ -31,8 +31,8 @@ export default function TTY() {
                         padding: 6,
                     }}
                 >
-                    <Title level={4} style={{ margin: 8 }}>{t('tty_solution1')}</Title>
-                    <Paragraph>{t('tty_solution1_use')}</Paragraph>
+                    <Title level={3}>{t('tty_solution1')}</Title>
+                    <Paragraph>- {t('tty_solution1_use')}</Paragraph>
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -40,7 +40,7 @@ export default function TTY() {
                             </Text>
                         </pre>
                     </Paragraph>
-                    Or
+                    - Or
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -55,7 +55,7 @@ export default function TTY() {
                         padding: 6,
                     }}
                 >
-                    <Title level={4} style={{ margin: 8 }}>{t('tty_solution2')}</Title>
+                    <Title level={3}>{t('tty_solution2')}</Title>
                     <Paragraph>- {t('tty_solution2_getbin')}: <Link href='https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat' target='_blank'>Download Socat</Link></Paragraph>
                     <Paragraph>- {t('tty_solution2_getcmd')}: <Link href='./RevShell#name=socat+%232+%28TTY%29' target='_blank'>Socat Reverse Shell</Link></Paragraph>
                     <Paragraph>
@@ -72,8 +72,8 @@ export default function TTY() {
                         padding: 6,
                     }}
                 >
-                    <Title level={4} style={{ margin: 8 }}>{t('tty_solution3')}</Title>
-                    <Paragraph>{t('tty_solution3_getbin')}:</Paragraph>
+                    <Title level={3}>{t('tty_solution3')}</Title>
+                    <Paragraph>- {t('tty_solution3_getbin')}:</Paragraph>
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -81,7 +81,7 @@ export default function TTY() {
                             </Text>
                         </pre>
                     </Paragraph>
-                    <Paragraph>{t('tty_solution3_use')}:</Paragraph>
+                    <Paragraph>- {t('tty_solution3_use')}:</Paragraph>
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -89,7 +89,7 @@ export default function TTY() {
                             </Text>
                         </pre>
                     </Paragraph>
-                    <Paragraph>{t('tty_solution3_shell')}:</Paragraph>
+                    <Paragraph>- {t('tty_solution3_shell')}:</Paragraph>
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -97,9 +97,8 @@ export default function TTY() {
                             </Text>
                         </pre>
                     </Paragraph>
-                    <Paragraph>{t('tty_solution3_tty')}</Paragraph>
-                </div>
-                <Collapse defaultActiveKey={['0']}>
+                    <Paragraph>- {t('tty_solution3_tty')}</Paragraph>
+                    <Collapse defaultActiveKey={['0']}>
                     <Panel header={t('php_webshell_preview')} key='1'>
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <img
@@ -109,14 +108,14 @@ export default function TTY() {
                         </div>
                     </Panel>
                 </Collapse>
-
-
+                </div>
+                
                 <Divider />
                 <div
                     style={{
                         padding: 6,
                     }}>
-                    <Title level={4} style={{ margin: 8 }}>{t('tty_autocomp')}</Title>
+                    <Title level={3}>{t('tty_autocomp')}</Title>
                     <Paragraph>
                         <pre>
                             <Text copyable>
@@ -125,19 +124,19 @@ export default function TTY() {
                         </pre>
                     </Paragraph>
                     <Paragraph>
-                        <strong>{t('tty_background')}</strong>
+                        <strong>- {t('tty_background')}</strong>
                         <pre>
                             <Text>
                                 Press 'Ctrl + Z'
                             </Text>
                         </pre>
-                        {t('tty_background1')}
+                        - {t('tty_background1')}
                         <pre>
                             <Text copyable>
                                 {`stty raw -echo; fg\nstty rows 38 columns 116`}
                             </Text>
                         </pre>
-                        {t('tty_background2')}
+                        - {t('tty_background2')}
                     </Paragraph>
                 </div>
             </div>
