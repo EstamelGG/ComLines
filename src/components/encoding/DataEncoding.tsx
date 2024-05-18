@@ -131,7 +131,9 @@ const Base64Encode = () => {
             <Title level={2} style={{ fontWeight: 'bold', margin: 15  }}>
                 {t('data_encoder_title')}
             </Title>
-            <Paragraph>
+            <Paragraph style={{
+                    margin: 15
+                }}>
                 {t('data_encoder_desc')}
             </Paragraph>
             <Divider dashed />
