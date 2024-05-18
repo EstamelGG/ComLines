@@ -128,14 +128,16 @@ const Base64Encode = () => {
 
     return (
         <div>
-            <Title level={2} style={{ fontWeight: 'bold', margin: 15  }}>
-                {t('data_encoder_title')}
-            </Title>
-            <Paragraph style={{
+            <div>
+                <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
+                    {t('data_encoder_title')}
+                </Title>
+                <Paragraph style={{
                     margin: 15
                 }}>
-                {t('data_encoder_desc')}
-            </Paragraph>
+                    {t('data_encoder_desc')}
+                </Paragraph>
+            </div>
             <Divider dashed />
             <div
                 key='a'
