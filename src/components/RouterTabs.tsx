@@ -6,6 +6,8 @@ import PHPWebShell from './revShell/PHPWebShell';
 import FileEncodeTrans from './file_transfer/ObfuscatedFiles';
 import MSFVenom from './msfvenom/MSFBuilder'
 import SpawnTTY from './linux_terminal/TtySpawnShell'
+import Encoder from './encoding/DataEncoding';
+import Hashing from './encoding/Hashing';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['./iconfont.js']
@@ -49,11 +51,25 @@ const Tabs: Array<IRouterComponent> = [
     component: SpawnTTY
   },
   {
+    key: '10',
+    icon: <IconFont type='icon-jiemaleixing' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Data Encoder',
+    path: '/Encoder',
+    component: Encoder
+  },
+  {
     key: '11',
     icon: <IconFont type='icon-Encode-File' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Obfuscated Files',
     path: '/FileEncodeTrans',
     component: FileEncodeTrans
+  },
+  {
+    key: '12',
+    icon: <IconFont type='icon-hash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Calc Hash',
+    path: '/Hashing',
+    component: Hashing
   },
   {
     key: '14',
