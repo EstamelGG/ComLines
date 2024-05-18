@@ -366,7 +366,7 @@ const MSFVenom = () => {
                                 onClick={toPayloadCopy}
                                 disabled={!values.Payload || (values.Payload.length === 0)}
                                 >
-                                    <CopyOutlined /> {t('misc_copy')}
+                                    <CopyOutlined /> {t('misc_copy')} Msfvenom
                                 </Button>
                             </Clipboard>
                             <Button
