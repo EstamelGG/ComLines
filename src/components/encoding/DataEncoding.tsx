@@ -126,7 +126,7 @@ const Base64Encode = () => {
             <Menu.Item key='Hexadecimal'>Hexadecimal</Menu.Item>
         </Menu>
     );
-
+    document.title = `${t('data_encoder_title')} - HackTrick Checklist`;
     return (
         <div>
             <div>

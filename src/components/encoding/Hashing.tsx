@@ -112,7 +112,7 @@ const HashEncode = () => {
     const handleChange = (_name: string) => (event: { target: { value: React.SetStateAction<string> } }) => {
         setInput(event.target.value);
     };
-
+    document.title = `${t('hash_enerator_title')} - HackTrick Checklist`;
     return (
         <div>
             <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
