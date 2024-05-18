@@ -45,11 +45,12 @@ const Base64Encode = () => {
         setInput(event.target.value);
     };
 
+    const clearAll = () => {
+        setInput('');
+        setOutput('');
+    };
+
     const handleSwitchButtonClick = () => {
-        let middle_param_in = String('');
-        let middle_param_out = String('');
-        middle_param_in = input;
-        middle_param_out = output;
         setInput(output);
         setOutput(input);
     };
@@ -207,7 +208,7 @@ const Base64Encode = () => {
                 <Button
                     danger
                     style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                    onClick={() => setOutput('')}
+                    onClick={() => clearAll()}
                 >
                     <ClearOutlined /> {t('misc_clear')}
                 </Button>
