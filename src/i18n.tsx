@@ -28,6 +28,7 @@ i18n
             {'title': 'PHP WebShell', 'link': '../PHPWebShell'},
             {'title': 'Respawn TTY Shell', 'link': '../SpawnTTY'},
             {'title': 'Data Encoder', 'link': '../Encoder'},
+            {'title': 'Oneliner', 'link': '../OneLiner'},
             {'title': 'Obfuscated Files or Information', 'link': '../FileEncodeTrans'},
             {'title': 'Calculate Hash', 'link': '../Hashing'},
             {'title': 'MSFVenom Builder', 'link': '../MSFVenom'},
@@ -97,7 +98,7 @@ i18n
             {'title': 'crackstation', 'link': 'https://crackstation.net/'}
           ],
           oneliner_title: 'One-line Generator',
-          oneliner_desc: 'Generate One-line-commandline to execute',
+          oneliner_desc: 'Generate One-line-commandline to execute<br />Bash b64/hex/rot47: Require Bash command line<br />Python: Require python code<br />Powershell: Require powershell code (part "powershell -c" is not necessary )',
         }
       },
       zh: {
@@ -122,6 +123,7 @@ i18n
             {'title': 'PHP WebShell', 'link': '../PHPWebShell'},
             {'title': '升级 Linux 交互式 Shell (TTY)', 'link': '../SpawnTTY'},
             {'title': '编解码器', 'link': '../Encoder'},
+            {'title': 'Oneliner', 'link': '../OneLiner'},
             {'title': '文件与信息混淆', 'link': '../FileEncodeTrans'},
             {'title': '哈希计算器', 'link': '../Hashing'},
             {'title': 'MSFVenom 命令行构造', 'link': '../MSFVenom'},
@@ -192,7 +194,7 @@ i18n
             {'title': 'Crackstation', 'link': 'https://crackstation.net/'}
           ],
           oneliner_title: '单行命令行压缩 (OneLiner)',
-          oneliner_desc: '将 bash 命令、powershell 命令、cmd命令、python脚本等多行的、含有特殊符号的命令行压缩到一行，以提高隐蔽性，减少干扰。<br />编码模式中 Multi 指各种跨平台脚本环境。<br />编码时只需要传入对应语言的 payload 即可，比如 python 编码需要输入python代码，powershell 编码只需要 powershell 命令行，不需要 powershell -c 等部分。',
+          oneliner_desc: '将 bash 命令、powershell 命令、cmd命令、python脚本等多行的、含有特殊符号的命令行压缩到一行，以提高隐蔽性，减少干扰。<br />编码模式中 Multi 指各种跨平台脚本环境。<br />编码时只需要传入对应语言的 payload 即可<br />Bash b64/hex/rot47: 需要 Bash 命令行<br />Python: 需要输入python代码<br />Powershell: 需要 powershell 代码 (不需要 powershell -c 等部分)',
         }
       }
     },

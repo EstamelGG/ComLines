@@ -113,127 +113,116 @@ const FileEncodeTrans = () => {
                 message.error(t('fileTrans_err5'));
                 return;
             }
-            //Plain text - Bash b64
-            if (encMode === 'Plain text - Bash b64') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const bash_b64 = btoa(binaryString);
-                setOutput(
-                    `raw="${bash_b64}"\n` +
-                    `echo -n $raw | base64 -d > "${values.name}"`
-                );
-            }
-            //Plain text - Bash Hex
-            if (encMode === 'Plain text - Bash Hex') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const bash_hex = stringToHex(binaryString);
-                setOutput(
-                    `raw="${bash_hex}"\n` +
-                    `echo -n $raw | xxd -r -p > "${values.name}"`
-                );
-            }
-            //Plain text - CMD
-            if (encMode === 'Plain text - CMD') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const cmd_b64 = btoa(binaryString);
-                const cmd_random = randomString();
-                /////////////////////////////////////////////
-                let maxSegmentLength = 1000;
-                let outputCommand = '';
-                const segments = segmentString(cmd_b64, maxSegmentLength);
-                segments.forEach((segment) => {
-                    outputCommand += `echo|set /p="${segment}" >> ${cmd_random}\n`;
-                });
-                // 添加解码和删除命令
-                outputCommand += `certutil -decode ${cmd_random} "${values.name}"\n`;
-                outputCommand += `del /Q ${cmd_random}`;
-                // 设置 Output 变量的值
-                setOutput(outputCommand);
-                /////////////////////////////////////////////
-            }
-            //Plain text - Powershell
-            if (encMode === 'Plain text - Powershell') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const pwsh_b64 = btoa(binaryString);
-                const pwsh_random = randomString();
-                setOutput(
-                    `${"$" + pwsh_random} = @()\n` +
-                    `${"$" + pwsh_random} +=\n` +
-                    `[System.Convert]::FromBase64String("${pwsh_b64}")\n` +
-                    `[Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath\n` +
-                    `[System.IO.File]::WriteAllBytes("${values.name}",  ${"$" + pwsh_random})\n` +
-                    `Remove-Variable ${pwsh_random}`
-                );
-            }
-            //File - Bash b64
-            if (encMode === 'File - Bash b64') {
-                if (!(fileB64.length > 0)) {
-                    message.error(t('fileTrans_err4'));
-                    return;
-                }
-                setOutput(
-                    `raw="${fileB64}"\n` +
-                    `echo -n $raw | base64 -d > "${values.name}"`
-                );
-            }
-            //File - Bash Hex
-            if (encMode === 'File - Bash Hex') {
-                if (!(fileRaw.length > 0)) {
-                    message.error(t('fileTrans_err4'));
-                    return;
-                }
-                setOutput(
-                    `raw="${stringToHex(fileRaw)}"\n` +
-                    `echo -n $raw | xxd -r -p > "${values.name}"`
-                );
-            }
-            //File - CMD
-            if (encMode === 'File - CMD') {
-                if (!(fileB64.length > 0)) {
-                    message.error(t('fileTrans_err4'));
-                    return;
-                }
-                const cmd_random = randomString();
-                /////////////////////////////////////////////
-                let maxSegmentLength = 1000;
-                let outputCommand = '';
-                const segments = segmentString(fileB64, maxSegmentLength);
-                segments.forEach((segment) => {
-                    outputCommand += `echo|set /p="${segment}" >> ${cmd_random}\n`;
-                });
-                // 添加解码和删除命令
-                outputCommand += `certutil -decode ${cmd_random} "${values.name}"\n`;
-                outputCommand += `del /Q ${cmd_random}`;
-                // 设置 Output 变量的值
-                setOutput(outputCommand);
-                /////////////////////////////////////////////
-            }
-            //File - Powershell
-            if (encMode === 'File - Powershell') {
-                if (!(fileB64.length > 0)) {
-                    message.error(t('fileTrans_err4'));
-                    return;
-                }
-                const pwsh_random = randomString();
-                setOutput(
-                    `${"$" + pwsh_random} = @()\n` +
-                    `${"$" + pwsh_random} +=\n` +
-                    `[System.Convert]::FromBase64String("${fileB64}")\n` +
-                    `[Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath\n` +
-                    `[System.IO.File]::WriteAllBytes("${values.name}",  ${"$" + pwsh_random})\n` +
-                    `Remove-Variable ${pwsh_random}`
-                );
+            switch (encMode) {
+                case 'Plain text - Bash b64':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const bash_b64 = btoa(binaryString);
+                    setOutput(
+                        `raw="${bash_b64}"\n` +
+                        `echo -n $raw | base64 -d > "${values.name}"`
+                    );
+                    break;
+                case 'Plain text - Bash Hex':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const bash_hex = stringToHex(binaryString);
+                    setOutput(
+                        `raw="${bash_hex}"\n` +
+                        `echo -n $raw | xxd -r -p > "${values.name}"`
+                    );
+                    break;
+                case 'Plain text - CMD':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const cmd_b64 = btoa(binaryString);
+                    const cmd_random = randomString();
+                    let maxSegmentLength = 1000;
+                    let outputCommand = '';
+                    const segments = segmentString(cmd_b64, maxSegmentLength);
+                    segments.forEach((segment) => {
+                        outputCommand += `echo|set /p="${segment}" >> ${cmd_random}\n`;
+                    });
+                    outputCommand += `certutil -decode ${cmd_random} "${values.name}"\n`;
+                    outputCommand += `del /Q ${cmd_random}`;
+                    setOutput(outputCommand);
+                    break;
+                case 'Plain text - Powershell':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const pwsh_b64 = btoa(binaryString);
+                    const pwsh_random = randomString();
+                    setOutput(
+                        `${"$" + pwsh_random} = @()\n` +
+                        `${"$" + pwsh_random} +=\n` +
+                        `[System.Convert]::FromBase64String("${pwsh_b64}")\n` +
+                        `[Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath\n` +
+                        `[System.IO.File]::WriteAllBytes("${values.name}",  ${"$" + pwsh_random})\n` +
+                        `Remove-Variable ${pwsh_random}`
+                    );
+                    break;
+                case 'File - Bash b64':
+                    if (!(fileB64.length > 0)) {
+                        message.error(t('fileTrans_err4'));
+                        return;
+                    }
+                    setOutput(
+                        `raw="${fileB64}"\n` +
+                        `echo -n $raw | base64 -d > "${values.name}"`
+                    );
+                    break;
+                case 'File - Bash Hex':
+                    if (!(fileRaw.length > 0)) {
+                        message.error(t('fileTrans_err4'));
+                        return;
+                    }
+                    setOutput(
+                        `raw="${stringToHex(fileRaw)}"\n` +
+                        `echo -n $raw | xxd -r -p > "${values.name}"`
+                    );
+                    break;
+                case 'File - CMD':
+                    if (!(fileB64.length > 0)) {
+                        message.error(t('fileTrans_err4'));
+                        return;
+                    }
+                    const cmd_random2 = randomString();
+                    let maxSegmentLength2 = 1000;
+                    let outputCommand2 = '';
+                    const segments2 = segmentString(fileB64, maxSegmentLength2);
+                    segments2.forEach((segment) => {
+                        outputCommand2 += `echo|set /p="${segment}" >> ${cmd_random2}\n`;
+                    });
+                    outputCommand2 += `certutil -decode ${cmd_random2} "${values.name}"\n`;
+                    outputCommand2 += `del /Q ${cmd_random2}`;
+                    setOutput(outputCommand2);
+                    break;
+                case 'File - Powershell':
+                    if (!(fileB64.length > 0)) {
+                        message.error(t('fileTrans_err4'));
+                        return;
+                    }
+                    const pwsh_random2 = randomString();
+                    setOutput(
+                        `${"$" + pwsh_random2} = @()\n` +
+                        `${"$" + pwsh_random2} +=\n` +
+                        `[System.Convert]::FromBase64String("${fileB64}")\n` +
+                        `[Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath\n` +
+                        `[System.IO.File]::WriteAllBytes("${values.name}",  ${"$" + pwsh_random2})\n` +
+                        `Remove-Variable ${pwsh_random2}`
+                    );
+                    break;
+                default:
+                    message.error('Unknown encoding mode');
+                    break;
             }
         }
         catch (ex) {
@@ -255,8 +244,8 @@ const FileEncodeTrans = () => {
             setTextAreaDisable(false);
             setUploadDisable(true);
             // 编码文件内容
-        // } else if (['File - Bash b64', 'File - Bash Hex', 'File - CMD', 'File - Powershell'].includes(encMode)) {
-        } else if (encMode.startsWith("File ")) {  
+            // } else if (['File - Bash b64', 'File - Bash Hex', 'File - CMD', 'File - Powershell'].includes(encMode)) {
+        } else if (encMode.startsWith("File ")) {
             setTextAreaDisable(true);
             setUploadDisable(false);
         }

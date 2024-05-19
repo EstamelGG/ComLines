@@ -22,15 +22,6 @@ const OneLinerGenerator = () => {
     const [defaultPlaceholder, setdefaultPlaceholder] = useState(
         `import os\ndef exq(cmd):\n\tos.system(cmd)\nexq('calc')`)
     const [currentPlaceholder, setcurrentPlaceholder] = useState(defaultPlaceholder);
-    const successPayloadCopy = () => {
-        message.success(t('fileTrans_payloadcopied'));
-    };
-
-    const toPayloadCopy = () => {
-        if (output.length !== 0) {
-            successPayloadCopy()
-        }
-    }
 
     const props = {
         multiple: false,
@@ -56,14 +47,12 @@ const OneLinerGenerator = () => {
             const rawBin = atob(base64String);
             setFileB64(base64String);
             message.success(t('fileTrans_info1') + file.name);
-            //setcurrentPlaceholder(rawBin);
             setInputValue(rawBin);
         };
     };
 
 
     const [encMode, setEncmode] = useState('');
-    const [ifTextAreaDisabled, setTextAreaDisable] = useState(false);
 
     const handleClick = () => {
         const binaryString = utf8String(inputvalue)
@@ -76,63 +65,66 @@ const OneLinerGenerator = () => {
                 message.error(t('fileTrans_err5'));
                 return;
             }
-            //Bash b64
-            if (encMode === 'Bash b64') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const bash_b64 = btoa(binaryString);
-                setOutput(
-                    [`echo "${bash_b64}" | base64 -d | bash`,
-                    `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`]
-                );
-            }
-            //Bash Hex
-            if (encMode === 'Bash Hex') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                const bash_hex = stringToHex(binaryString);
-                setOutput(
-                    [`echo "${bash_hex}" | xxd -r -p | bash -i`,
-                    `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`
-                    ]
-                );
-            }
-            //Bash Rot47
-            if (encMode === 'Bash Rot47') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                setOutput(
-                    [`echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`,
-                    `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
-                    ]
-                );
-                /////////////////////////////////////////////
-            }
-            //Powershell
-            if (encMode === 'Powershell') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                setOutput(
-                    [`${powershell_b64_oneliner(binaryString)}`]
-                );
-            }
-            //Python
-            if (encMode === 'Python') {
-                if (binaryString.length === 0) {
-                    message.error(t('fileTrans_err1'));
-                    return;
-                }
-                setOutput(
-                    [`${python_zlib_oneliner(binaryString)}`]
-                );
+            switch (encMode) {
+                case 'Bash B64':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const bash_b64 = btoa(binaryString);
+                    setOutput(
+                        [`echo "${bash_b64}" | base64 -d | bash`,
+                        `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`]
+                    );
+                    break;
+                //Bash Hex
+                case 'Bash Hex':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    const bash_hex = stringToHex(binaryString);
+                    setOutput(
+                        [`echo "${bash_hex}" | xxd -r -p | bash -i`,
+                        `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`
+                        ]
+                    );
+                    break;
+                //Bash Rot47
+                case 'Bash Rot47':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    setOutput(
+                        [`echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`,
+                        `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
+                        ]
+                    );
+                    break;
+                //Powershell
+                case 'Powershell':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    setOutput(
+                        [`${powershell_b64_oneliner(binaryString)}`]
+                    );
+                    break;
+                //Python
+                case 'Python':
+                    if (binaryString.length === 0) {
+                        message.error(t('fileTrans_err1'));
+                        return;
+                    }
+                    setOutput(
+                        [`${python_zlib_oneliner(binaryString)}`]
+                    );
+                    break;
+                default:
+                    message.error('Error encMode');
+                    break;
             }
         }
         catch (ex) {
@@ -144,6 +136,21 @@ const OneLinerGenerator = () => {
     }
     const [selectedOption, setSelectedOption] = useState('');
     const handleEncModeList = (text: string, key: string) => {
+        console.log(key)
+        switch (key) {
+            case 'Bash B64':
+            case 'Bash Hex':
+            case 'Bash Rot47':
+                setcurrentPlaceholder("whoami; uname -a; ip a");
+                break;
+            case 'Powershell':
+                setcurrentPlaceholder("$system = Get-CimInstance -ClassName Win32_ComputerSystem\n$systemName = $system.Name\nWrite-Output \"System Name: $systemName\"");
+                break;
+            default:
+            case 'Python':
+                setcurrentPlaceholder(defaultPlaceholder);
+                break;
+        }
         setSelectedOption(text); // 更新选择的名字
         setEncmode(key); // 更新加密模式
     };
@@ -162,7 +169,7 @@ const OneLinerGenerator = () => {
     const menu = (
         <Menu onClick={({ key, domEvent }) => handleEncModeList(domEvent.currentTarget.innerText, key.toString())}>
             <Menu.SubMenu title="Linux">
-                <Menu.Item key='Bash b64'>Bash B64</Menu.Item>
+                <Menu.Item key='Bash B64'>Bash B64</Menu.Item>
                 <Menu.Divider />
                 <Menu.Item key='Bash Hex'>Bash Hex</Menu.Item>
                 <Menu.Divider />
@@ -210,7 +217,6 @@ const OneLinerGenerator = () => {
                 <TextArea
                     rows={6}
                     value={inputvalue}
-                    disabled={ifTextAreaDisabled}
                     onChange={handleChange('input')}
                     style={{ cursor: 'auto' }}
                     placeholder={currentPlaceholder}
@@ -247,7 +253,7 @@ const OneLinerGenerator = () => {
                     </Button>
                 </Space>
             </div>
-            {output.length > 0 && output[0].length > 0  && <Divider plain />}
+            {output.length > 0 && output[0].length > 0 && <Divider plain />}
             <div
                 key='b'
                 style={{
