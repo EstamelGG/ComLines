@@ -155,7 +155,7 @@ const OneLinerGenerator = () => {
     };
 
     const handleClear = () => {
-        setOutput(['']);
+        setOutput(['output should be here']);
         setInputValue('');
         setcurrentPlaceholder(defaultPlaceholder);
         setFileB64('');
