@@ -20,6 +20,7 @@ interface DataType {
     key: React.Key;
     name: string;
     tags: string[];
+    oneliner: string[];
     log: string;
     listener_cmd: string;
     payloadstr: string;
@@ -278,7 +279,7 @@ export default function ReverseShell() {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
-            render: (_, { tags, payloadstr, command, name }) => (
+            render: (_, { command, name }) => (
                 <>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ width: '100px' }}
@@ -300,20 +301,8 @@ export default function ReverseShell() {
                                         {
                                             key: '3',
                                             label: 'Double URL Encoded',
-                                        },
-                                        {
-                                            key: '4',
-                                            label: 'Oneliner',
-                                        },
-
-                                    ].filter(item => {
-                                        // 如果当前行是windows终端命令行，则允许进行Oneliner编码执行
-                                        return item.key !== '4' || ((
-                                            (tags.includes('windows') && tags.includes('terminal') && payloadstr)
-                                            ||
-                                            (tags.includes('linux') && tags.includes('terminal'))
-                                        ));
-                                    }),
+                                        }
+                                    ],
                                     onClick: (e) => {
                                         switch (e.key) {
                                             case '1':
@@ -332,16 +321,6 @@ export default function ReverseShell() {
                                                 e.domEvent.stopPropagation();
                                                 // double url encoded
                                                 navigator.clipboard.writeText(encodeURIComponent(encodeURIComponent(command)));
-                                                infoEncoded()
-                                                break;
-                                            case '4':
-                                                e.domEvent.stopPropagation();
-                                                // oneliner encode
-                                                if (tags.includes('linux')) {
-                                                    navigator.clipboard.writeText(oneliner(command, 'bash_b64'));
-                                                } else if (tags.includes('windows') && payloadstr) {
-                                                    navigator.clipboard.writeText(oneliner(payloadstr, 'powershell_b64'));
-                                                }
                                                 infoEncoded()
                                                 break;
                                             default:
@@ -386,6 +365,7 @@ export default function ReverseShell() {
         tags: payload.tags.sort(),
         listener_cmd: payload.listener_cmd || null,
         payloadstr: payload.payloadstr || null,
+        oneliner: payload.oneliner || [],
         log: payload.log || null,
         command: payload.command,
         note: payload.note || "-",
@@ -542,48 +522,30 @@ export default function ReverseShell() {
                                         </Text>
                                     </pre>
                                 </Paragraph>
-                                {/* Powershell Oneliner */}
-                                {record.tags.includes('windows') && record.tags.includes('terminal') && record.payloadstr && (
+                                {/* Oneliner */}
+                                {record.oneliner.length > 0 && (
                                     <div>
                                         <Paragraph>
-                                            Windows OneLiner:
+                                            OneLiner:
                                         </Paragraph>
-                                        <Paragraph>
-                                            <pre>
-                                                <Text copyable>
-                                                    {oneliner(record.payloadstr, 'powershell_b64')}
-                                                </Text>
-                                            </pre>
-                                        </Paragraph>
-                                    </div>
-                                )}
-                                {/* Linux Oneliner */}
-                                {record.tags.includes('linux') && record.tags.includes('terminal') && record.command && (
-                                    <div>
-                                        <Paragraph>
-                                            Linux OneLiner:
-                                        </Paragraph>
-                                        <Paragraph>
-                                            <pre>
-                                                <Text copyable>
-                                                    {oneliner(record.command, 'bash_b64')}
-                                                </Text>
-                                            </pre>
-                                        </Paragraph>
-                                        <Paragraph>
-                                            <pre>
-                                                <Text copyable>
-                                                    {oneliner(record.command, 'bash_hex')}
-                                                </Text>
-                                            </pre>
-                                        </Paragraph>
-                                        <Paragraph>
-                                            <pre>
-                                                <Text copyable>
-                                                    {oneliner(record.command, 'bash_rot')}
-                                                </Text>
-                                            </pre>
-                                        </Paragraph>
+                                        <div>
+                                            {record.oneliner.map((item, index) => {
+                                                // 获取键和值
+                                                const key = Object.keys(item)[0];
+                                                const value = item[key];
+                                                // 调用 oneliner 函数
+                                                const result = oneliner(record[value], key as any);
+                                                return (
+                                                    <Paragraph key={index}>
+                                                        <pre>
+                                                            <Text copyable>
+                                                                {result}
+                                                            </Text>
+                                                        </pre>
+                                                    </Paragraph>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 )}
                             </>

@@ -7,6 +7,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -16,6 +21,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -27,6 +37,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -36,6 +51,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -48,6 +68,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -58,6 +83,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -67,6 +97,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -87,6 +122,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -96,6 +136,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -116,6 +161,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -125,6 +175,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            "bash_b64",
+            "bash_hex",
+            "bash_rot"
         ]
     },
     {
@@ -144,6 +199,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -153,6 +213,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -164,6 +229,9 @@
             "windows",
             "terminal"
         ],
+        "oneliner": [
+            {"powershell_b64": "payloadstr"}
+        ],
         "note": "Test in Windows server 2012, Windows 11"
     },
     {
@@ -174,6 +242,9 @@
             "windows",
             "terminal"
         ],
+        "oneliner": [
+            {"powershell_b64": "payloadstr"}
+        ],
         "note": "Test in Windows server 2012, Windows 11"
     },
     {
@@ -183,6 +254,9 @@
         "tags": [
             "windows",
             "terminal"
+        ],
+        "oneliner": [
+            {"powershell_b64": "payloadstr"}
         ],
         "note": "Test in Windows server 2012, Windows 11"
     },
@@ -195,6 +269,9 @@
             "windows",
             "terminal"
         ],
+        "oneliner": [
+            {"powershell_b64": "payloadstr"}
+        ],
         "note": "Test in Windows server 2012, Windows 11"
     },
     {
@@ -204,6 +281,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -215,6 +297,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -225,6 +312,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -234,6 +326,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -246,6 +343,9 @@
             "windows",
             "code"
         ],
+        "oneliner": [
+            {"python_zlib": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2, Windows 11"
     },
     {
@@ -255,6 +355,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -266,6 +371,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -275,6 +385,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -286,6 +401,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -295,6 +415,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -326,6 +451,11 @@
             "code",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -337,6 +467,11 @@
             "code",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -347,6 +482,11 @@
             "mac",
             "code",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -386,6 +526,11 @@
             "mac",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -395,6 +540,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
@@ -415,6 +565,11 @@
             "windows",
             "terminal"
         ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
@@ -424,6 +579,7 @@
             "windows",
             "terminal"
         ],
+        "oneliner": [],
         "note": "Test in Windows 10 - Go 1.22.3"
     },
     {
@@ -452,6 +608,11 @@
             "linux",
             "mac",
             "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
