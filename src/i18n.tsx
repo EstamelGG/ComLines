@@ -47,7 +47,6 @@ i18n
           ],
           fileTrans_err1: 'Please enter some text to encode or upload a file',
           fileTrans_err2: 'Please enter output file name or path',
-          fileTrans_err3: 'Invalid Base64 input',
           fileTrans_err4: 'Please upload a file',
           fileTrans_err5: 'Please select encode mode',
           fileTrans_largefile_warn: 'The selected file size exceeds 10MB. Do you want to continue uploading?',
@@ -97,6 +96,8 @@ i18n
             {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
             {'title': 'crackstation', 'link': 'https://crackstation.net/'}
           ],
+          oneliner_title: 'One-line Generator',
+          oneliner_desc: 'Generate One-line-commandline to execute',
         }
       },
       zh: {
@@ -140,7 +141,6 @@ i18n
           ],
           fileTrans_err1: '输入要编码的内容或上传文件',
           fileTrans_err2: '需要设置输出的文件名或路径',
-          fileTrans_err3: '输入的Base64字符串不合法',
           fileTrans_err4: '上传一个文件',
           fileTrans_err5: '选择一个编码模式',
           fileTrans_info1: '读取文件 ',
@@ -191,6 +191,8 @@ i18n
             {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
             {'title': 'Crackstation', 'link': 'https://crackstation.net/'}
           ],
+          oneliner_title: '单行命令行压缩 (OneLiner)',
+          oneliner_desc: '将 bash 命令、powershell 命令、cmd命令、python脚本等多行的、含有特殊符号的命令行压缩到一行，以提高隐蔽性，减少干扰。<br />编码模式中 Multi 指各种跨平台脚本环境。<br />编码时只需要传入对应语言的 payload 即可，比如 python 编码需要输入python代码，powershell 编码只需要 powershell 命令行，不需要 powershell -c 等部分。',
         }
       }
     },

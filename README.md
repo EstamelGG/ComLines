@@ -32,6 +32,8 @@ npm start
 
     python + zlib + b64 命令执行
 
+    大括号绕过
+
 2. 设计基于powershell的内存加载exe模块
 
 3. Linux 搬一些 [gtfobins](https://gtfobins.github.io/) 上的常用提权组件来，再列举一些常见的提权cve

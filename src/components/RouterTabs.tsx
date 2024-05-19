@@ -8,6 +8,7 @@ import MSFVenom from './msfvenom/MSFBuilder'
 import SpawnTTY from './linux_terminal/TtySpawnShell'
 import Encoder from './encoding/DataEncoding';
 import Hashing from './encoding/Hashing';
+import OneLinerGenerator from './oneliner_generator/OnelinerPage';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['./iconfont.js']
@@ -59,20 +60,27 @@ const Tabs: Array<IRouterComponent> = [
   },
   {
     key: '11',
+    icon: <IconFont type='icon-yasuotupian' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'OneLiner',
+    path: '/OneLiner',
+    component: OneLinerGenerator
+  },
+  {
+    key: '12',
     icon: <IconFont type='icon-Encode-File' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Obfuscated Files',
     path: '/FileEncodeTrans',
     component: FileEncodeTrans
   },
   {
-    key: '12',
+    key: '13',
     icon: <IconFont type='icon-hash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Calc Hash',
     path: '/Hashing',
     component: Hashing
   },
   {
-    key: '14',
+    key: '15',
     icon: <IconFont type='icon-shield' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'MSFVenom',
     path: '/MSFVenom',

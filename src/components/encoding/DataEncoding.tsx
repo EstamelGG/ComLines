@@ -4,6 +4,7 @@ import { CopyOutlined, createFromIconfontCN, ClearOutlined, DownOutlined, SwapOu
 import Clipboard from 'react-clipboard.js';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
+import { utf8String } from '../utils/utf8String';
 
 const { Title, Paragraph } = Typography;
 const IconFont = createFromIconfontCN({
@@ -58,22 +59,23 @@ const Base64Encode = () => {
     const handleClick = (type: string) => {
         let output;
         let errorMessage;
+        const binaryString = utf8String(input)
         switch (type) {
             case "encode":
                 switch (encMode) {
                     case "Base64":
-                        output = btoa(input);
+                        output = btoa(binaryString);
                         break;
                     case "URL":
                         try {
-                            output = encodeURI(input);
+                            output = encodeURI(binaryString);
                         } catch (error) {
                             errorMessage = "Incorrect format, please try something else.";
                         }
                         break;
                     case "Hexadecimal":
                         try {
-                            output = toHex(input);
+                            output = toHex(binaryString);
                         } catch (error) {
                             errorMessage = "Incorrect Hex, please try something else.";
                         }
@@ -84,21 +86,21 @@ const Base64Encode = () => {
                 switch (encMode) {
                     case "Base64":
                         try {
-                            output = atob(input);
+                            output = atob(binaryString);
                         } catch (ex) {
                             errorMessage = "Incorrect Base64, please try something else.";
                         }
                         break;
                     case "URL":
                         try {
-                            output = decodeURI(input);
+                            output = decodeURI(binaryString);
                         } catch (ex) {
                             errorMessage = "Incorrect URL, please try something else.";
                         }
                         break;
                     case "Hexadecimal":
                         try {
-                            output = hex2a(input);
+                            output = hex2a(binaryString);
                         } catch (ex) {
                             errorMessage = "Incorrect hexadecimal, please try something else.";
                         }

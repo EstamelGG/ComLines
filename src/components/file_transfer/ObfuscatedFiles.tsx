@@ -9,6 +9,7 @@ import segmentString from '../utils/stringSegmenter';
 import ReferenceLinks from '../utils/reference';
 import randomString from '../utils/getRandomString';
 import { stringToHex } from '../utils/hex';
+import { utf8String } from '../utils/utf8String';
 import '../../i18n';
 
 const { Title, Paragraph } = Typography;
@@ -98,8 +99,9 @@ const FileEncodeTrans = () => {
     const [ifUploadDisabled, setUploadDisable] = useState(true);
 
     const handleClick = () => {
+        const binaryString = utf8String(values.input)
         try {
-            if (values.input.length === 0 && fileB64.length === 0) {
+            if (binaryString.length === 0 && fileB64.length === 0) {
                 message.error(t('fileTrans_err1'));
                 return;
             }
@@ -113,11 +115,11 @@ const FileEncodeTrans = () => {
             }
             //Plain text - Bash b64
             if (encMode === 'Plain text - Bash b64') {
-                if (values.input.length === 0) {
+                if (binaryString.length === 0) {
                     message.error(t('fileTrans_err1'));
                     return;
                 }
-                const bash_b64 = btoa(values.input);
+                const bash_b64 = btoa(binaryString);
                 setOutput(
                     `raw="${bash_b64}"\n` +
                     `echo -n $raw | base64 -d > "${values.name}"`
@@ -125,11 +127,11 @@ const FileEncodeTrans = () => {
             }
             //Plain text - Bash Hex
             if (encMode === 'Plain text - Bash Hex') {
-                if (values.input.length === 0) {
+                if (binaryString.length === 0) {
                     message.error(t('fileTrans_err1'));
                     return;
                 }
-                const bash_hex = stringToHex(values.input);
+                const bash_hex = stringToHex(binaryString);
                 setOutput(
                     `raw="${bash_hex}"\n` +
                     `echo -n $raw | xxd -r -p > "${values.name}"`
@@ -137,11 +139,11 @@ const FileEncodeTrans = () => {
             }
             //Plain text - CMD
             if (encMode === 'Plain text - CMD') {
-                if (values.input.length === 0) {
+                if (binaryString.length === 0) {
                     message.error(t('fileTrans_err1'));
                     return;
                 }
-                const cmd_b64 = btoa(values.input);
+                const cmd_b64 = btoa(binaryString);
                 const cmd_random = randomString();
                 /////////////////////////////////////////////
                 let maxSegmentLength = 1000;
@@ -159,11 +161,11 @@ const FileEncodeTrans = () => {
             }
             //Plain text - Powershell
             if (encMode === 'Plain text - Powershell') {
-                if (values.input.length === 0) {
+                if (binaryString.length === 0) {
                     message.error(t('fileTrans_err1'));
                     return;
                 }
-                const pwsh_b64 = btoa(values.input);
+                const pwsh_b64 = btoa(binaryString);
                 const pwsh_random = randomString();
                 setOutput(
                     `${"$" + pwsh_random} = @()\n` +
