@@ -60,7 +60,7 @@ const Tabs: Array<IRouterComponent> = [
   },
   {
     key: '11',
-    icon: <IconFont type='icon-yasuotupian' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    icon: <IconFont type='icon-yasuo' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'OneLiner',
     path: '/OneLiner',
     component: OneLinerGenerator
