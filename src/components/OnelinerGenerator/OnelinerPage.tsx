@@ -16,7 +16,6 @@ const IconFont = createFromIconfontCN({
 const OneLinerGenerator = () => {
     const { t } = useTranslation();
     const [output, setOutput] = useState<string[]>(['output should be here']);
-    const [fileB64, setFileB64] = useState('');
     const { TextArea } = Input;
     const [inputvalue, setInputValue] = useState('');
     const [defaultPlaceholder, setdefaultPlaceholder] = useState(
@@ -45,7 +44,6 @@ const OneLinerGenerator = () => {
             let base64String = reader.result as string;
             base64String = base64String.replace(/^data:(.*?);base64,/, '');
             const rawBin = atob(base64String);
-            setFileB64(base64String);
             message.success(t('fileTrans_info1') + file.name);
             setInputValue(rawBin);
         };
@@ -57,7 +55,7 @@ const OneLinerGenerator = () => {
     const handleClick = () => {
         const binaryString = utf8String(inputvalue)
         try {
-            if (binaryString.length === 0 && fileB64.length === 0) {
+            if (binaryString.length === 0) {
                 message.error(t('fileTrans_err1'));
                 return;
             }
@@ -67,10 +65,6 @@ const OneLinerGenerator = () => {
             }
             switch (encMode) {
                 case 'Bash B64':
-                    if (binaryString.length === 0) {
-                        message.error(t('fileTrans_err1'));
-                        return;
-                    }
                     const bash_b64 = btoa(binaryString);
                     setOutput(
                         [`echo "${bash_b64}" | base64 -d | bash`,
@@ -79,10 +73,6 @@ const OneLinerGenerator = () => {
                     break;
                 //Bash Hex
                 case 'Bash Hex':
-                    if (binaryString.length === 0) {
-                        message.error(t('fileTrans_err1'));
-                        return;
-                    }
                     const bash_hex = stringToHex(binaryString);
                     setOutput(
                         [`echo "${bash_hex}" | xxd -r -p | bash -i`,
@@ -92,10 +82,6 @@ const OneLinerGenerator = () => {
                     break;
                 //Bash Rot47
                 case 'Bash Rot47':
-                    if (binaryString.length === 0) {
-                        message.error(t('fileTrans_err1'));
-                        return;
-                    }
                     setOutput(
                         [`echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`,
                         `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
@@ -104,20 +90,12 @@ const OneLinerGenerator = () => {
                     break;
                 //Powershell
                 case 'Powershell':
-                    if (binaryString.length === 0) {
-                        message.error(t('fileTrans_err1'));
-                        return;
-                    }
                     setOutput(
                         [`${powershell_b64_oneliner(binaryString)}`]
                     );
                     break;
                 //Python
                 case 'Python':
-                    if (binaryString.length === 0) {
-                        message.error(t('fileTrans_err1'));
-                        return;
-                    }
                     setOutput(
                         [`${python_zlib_oneliner(binaryString)}`]
                     );
@@ -158,7 +136,6 @@ const OneLinerGenerator = () => {
         setOutput(['output should be here']);
         setInputValue('');
         setcurrentPlaceholder(defaultPlaceholder);
-        setFileB64('');
     };
 
     const handleChange = (_name: string) => (event: { target: { value: React.SetStateAction<string> } }) => {
