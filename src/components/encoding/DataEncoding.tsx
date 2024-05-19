@@ -108,7 +108,6 @@ const Base64Encode = () => {
                 }
                 break;
         }
-        output = decodeURIComponent(escape(output));
         setOutput(errorMessage ? "Unable to decode properly: " + errorMessage : output);
         if (errorMessage) {
             message.error(errorMessage);

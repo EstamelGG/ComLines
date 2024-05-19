@@ -186,7 +186,7 @@ i18n
           tty_background1: '回到自己的终端后执行以下命令',
           tty_background2: '敲几下回车，最终能够获取 tab 自动补全、方向键、Ctrl + C 杀死进程等终端能力。',
           data_encoder_title: '编解码器',
-          data_encoder_desc: '本页提供了一些编码方式 (Base64、Hex、URL编码等)，可以帮助用户进行一些简单的编解码工作。',
+          data_encoder_desc: '本页提供了一些编码方式 (Base64、Hex、URL编码等)，可以帮助用户进行一些简单的编解码工作。考虑到输入输出的编码可能对结果造成影响，请尽量输入英文、数字、字母，避免使用容易出现乱码的语言和文字。',
           hash_enerator_title: '哈希计算器',
           hash_enerator_desc: 'Hash，一般翻译做散列、杂凑，或音译为哈希，是把任意长度的输入 (又叫做预映射pre-image) 通过散列算法变换成固定长度的输出，该输出就是散列值。',
           hash_enerator_reference: [

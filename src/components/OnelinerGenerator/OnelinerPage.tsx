@@ -58,8 +58,8 @@ const OneLinerGenerator = () => {
         const bash_b64 = btoa(binaryString);
         let result1 = `echo "${bash_b64}" | base64 -d | bash`;
         let result2 = `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`
-        result1 = decodeURIComponent(escape(result1));
-        result2 = decodeURIComponent(escape(result2));
+        // result1 = decodeURIComponent(escape(result1));
+        // result2 = decodeURIComponent(escape(result2));
         setOutput([result1,result2]);
     };
 
@@ -67,28 +67,28 @@ const OneLinerGenerator = () => {
         const bash_hex = stringToHex(binaryString);
         let result1 = `echo "${bash_hex}" | xxd -r -p | bash -i`;
         let result2 = `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`;
-        result1 = decodeURIComponent(escape(result1));
-        result2 = decodeURIComponent(escape(result2));
+        // result1 = decodeURIComponent(escape(result1));
+        // result2 = decodeURIComponent(escape(result2));
         setOutput([result1,result2]);
     };
 
     const handleBashRot47 = async (binaryString) => {
         let result1 = `echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`;
         let result2 = `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
-        result1 = decodeURIComponent(escape(result1));
-        result2 = decodeURIComponent(escape(result2));
+        // result1 = decodeURIComponent(escape(result1));
+        // result2 = decodeURIComponent(escape(result2));
         setOutput([result1,result2]);
     };
 
     const handlePowershell = async (binaryString) => {
         let result = `${powershell_b64_oneliner(binaryString)}`;
-        result = decodeURIComponent(escape(result));
+        // result = decodeURIComponent(escape(result));
         setOutput([result]);
     };
 
     const handlePython = async (binaryString) => {
         let result = `${python_zlib_oneliner(binaryString)}`
-        result = decodeURIComponent(escape(result));
+        // result = decodeURIComponent(escape(result));
         setOutput([result]);
     };
 
