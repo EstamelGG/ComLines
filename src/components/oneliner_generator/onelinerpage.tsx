@@ -136,7 +136,6 @@ const OneLinerGenerator = () => {
     }
     const [selectedOption, setSelectedOption] = useState('');
     const handleEncModeList = (text: string, key: string) => {
-        console.log(key)
         switch (key) {
             case 'Bash B64':
             case 'Bash Hex':
