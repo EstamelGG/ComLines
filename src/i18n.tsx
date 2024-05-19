@@ -91,7 +91,7 @@ i18n
           tty_background2: 'This does two things: first, it turns off our own terminal echo which gives us access to tab autocompletes, the arrow keys, and Ctrl + C to kill processes',
           data_encoder_title: 'Data Encoder',
           data_encoder_desc: 'Adversaries may encode data to make the content of command and control traffic more difficult to detect. Command and control (C2) information can be encoded using a standard data encoding system. Use of data encoding may adhere to existing protocol specifications and includes use of ASCII, Unicode, Base64, MIME, or other binary-to-text and character encoding systems.Some data encoding systems may also result in data compression, such as gzip.',
-          hash_enerator_title: 'Hash generator',
+          hash_enerator_title: 'Hash Generator',
           hash_enerator_desc: 'A hash function is any function that can be used to map data of arbitrary size to fixed-size values. The values returned by a hash function are called hash values, hash codes, digests, or simply hashes.',
           hash_enerator_reference: [
             {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
