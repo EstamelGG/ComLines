@@ -9,9 +9,12 @@
 - https://gchq.github.io/CyberChef/
 - https://github.com/LasCC/HackTools
 
-这两个工具都很好但都有不足:
+这两个工具都很好但都有不满足我需求的地方:
 1. 赛博厨子有非常丰富的加解密编解码等数据处理功能，但似乎只能对输入输出全量的运算，逻辑类似于output = hex(utf16(b58(b64(input))))，我们需要这样的运算逻辑：output = hex(b64(text1) + ":" + b64(text2))
 2. hacktools前端很不错，但他毕竟是个浏览器插件，没有url跳转也没有锚点，没办法分享链接和配置项
+3. 最重要的是我希望时不时手动增加一些功能，最好还是二开一下(
+
+# 编译
 
 ```
 npm install --force
@@ -20,7 +23,7 @@ npm start
 
 # todo
 
-1. 设计一个命令行 oneliner 编码器，提供：
+1. [done] 设计一个命令行 oneliner 编码器，提供：
 
     linux b64
 
