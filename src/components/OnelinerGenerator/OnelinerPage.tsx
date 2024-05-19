@@ -51,67 +51,83 @@ const OneLinerGenerator = () => {
 
 
     const [encMode, setEncmode] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleClick = () => {
+    const handleBashB64 = async (binaryString) => {
+        console.log(binaryString)
+        const bash_b64 = btoa(binaryString);
+        let result1 = `echo "${bash_b64}" | base64 -d | bash`;
+        let result2 = `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`
+        result1 = decodeURIComponent(escape(result1));
+        result2 = decodeURIComponent(escape(result2));
+        setOutput([result1,result2]);
+    };
+
+    const handleBashHex = async (binaryString) => {
+        const bash_hex = stringToHex(binaryString);
+        let result1 = `echo "${bash_hex}" | xxd -r -p | bash -i`;
+        let result2 = `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`;
+        result1 = decodeURIComponent(escape(result1));
+        result2 = decodeURIComponent(escape(result2));
+        setOutput([result1,result2]);
+    };
+
+    const handleBashRot47 = async (binaryString) => {
+        let result1 = `echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`;
+        let result2 = `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
+        result1 = decodeURIComponent(escape(result1));
+        result2 = decodeURIComponent(escape(result2));
+        setOutput([result1,result2]);
+    };
+
+    const handlePowershell = async (binaryString) => {
+        let result = `${powershell_b64_oneliner(binaryString)}`;
+        result = decodeURIComponent(escape(result));
+        setOutput([result]);
+    };
+
+    const handlePython = async (binaryString) => {
+        let result = `${python_zlib_oneliner(binaryString)}`
+        result = decodeURIComponent(escape(result));
+        setOutput([result]);
+    };
+
+    const handleClick = async () => {
+        if (inputvalue.length === 0) {
+            message.error(t('fileTrans_err1'));
+            return;
+        }
+
         const binaryString = utf8String(inputvalue)
+        setLoading(true);
         try {
-            if (binaryString.length === 0) {
-                message.error(t('fileTrans_err1'));
-                return;
-            }
-            if (encMode.length === 0) {
-                message.error(t('fileTrans_err5'));
-                return;
-            }
             switch (encMode) {
                 case 'Bash B64':
-                    const bash_b64 = btoa(binaryString);
-                    setOutput(
-                        [`echo "${bash_b64}" | base64 -d | bash`,
-                        `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`]
-                    );
+                    await handleBashB64(binaryString);
                     break;
-                //Bash Hex
                 case 'Bash Hex':
-                    const bash_hex = stringToHex(binaryString);
-                    setOutput(
-                        [`echo "${bash_hex}" | xxd -r -p | bash -i`,
-                        `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`
-                        ]
-                    );
+                    await handleBashHex(binaryString);
                     break;
-                //Bash Rot47
                 case 'Bash Rot47':
-                    setOutput(
-                        [`echo "${btoa(rot47encode(binaryString))}" | base64 -d | tr '!-~' 'P-~!-O' | bash -i`,
-                        `bash -c "{echo,${btoa(rot47encode(binaryString))}}|{base64,-d}|{tr,'!-~','P-~!-O'}|{bash,-i}"`
-                        ]
-                    );
+                    await handleBashRot47(binaryString);
                     break;
-                //Powershell
                 case 'Powershell':
-                    setOutput(
-                        [`${powershell_b64_oneliner(binaryString)}`]
-                    );
+                    await handlePowershell(inputvalue);
                     break;
-                //Python
                 case 'Python':
-                    setOutput(
-                        [`${python_zlib_oneliner(binaryString)}`]
-                    );
+                    await handlePython(binaryString);
                     break;
                 default:
                     message.error('Error encMode');
                     break;
             }
-        }
-        catch (ex) {
+        } catch (ex) {
             message.error('Unable to encode properly please try again');
-            //message.error(ex);
+        } finally {
+            setLoading(false);
         }
-        return;
-
     }
+    
     const [selectedOption, setSelectedOption] = useState('');
     const handleEncModeList = (text: string, key: string) => {
         switch (key) {
@@ -215,7 +231,8 @@ const OneLinerGenerator = () => {
                     <Button
                         type='primary'
                         style={{ marginTop: 15 }}
-                        onClick={() => handleClick()}
+                        onClick={handleClick}
+                        loading={loading}
                     >
                         <IconFont type='icon-lock' />
                         {t('misc_encode')}

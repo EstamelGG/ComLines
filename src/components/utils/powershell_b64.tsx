@@ -10,14 +10,3 @@ export function powerB64Encode(input: string): string {
     const base64Encoded = btoa(String.fromCharCode.apply(null, utf16Extended));
     return base64Encoded;
 }
-
-export function powerB64Decode(input: string): string {
-    const utf16Extended = new Uint8Array(atob(input).split('').map((char) => char.charCodeAt(0)));
-    const utf16Decoded = new Uint8Array(utf16Extended.length / 2);
-    for (let i = 0; i < utf16Decoded.length; i++) {
-        utf16Decoded[i] = utf16Extended[i * 2];
-    }
-    const decoder = new TextDecoder();
-    const base64Decoded = decoder.decode(utf16Decoded);
-    return base64Decoded;
-}
