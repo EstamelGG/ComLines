@@ -129,16 +129,12 @@ const Base64Encode = () => {
     document.title = `${t('data_encoder_title')} - HackTrick Checklist`;
     return (
         <div>
-            <div>
-                <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
-                    {t('data_encoder_title')}
-                </Title>
-                <Paragraph style={{
-                    margin: 15
-                }}>
-                    {t('data_encoder_desc')}
-                </Paragraph>
-            </div>
+            <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
+                {t('data_encoder_title')}
+            </Title>
+            <Paragraph style={{ margin: 15 }}>
+                {t('data_encoder_desc')}
+            </Paragraph>
             <Divider dashed />
             <div
                 key='a'

@@ -37,27 +37,30 @@
     border-radius: 10px;
 }
 
-.ant-menu-inline .ant-menu-item:not(:last-child),
-.ant-menu-vertical-left .ant-menu-item:not(:last-child),
-.ant-menu-vertical-right .ant-menu-item:not(:last-child),
-.ant-menu-vertical .ant-menu-item:not(:last-child) {
-    margin: 0px !important;
-}
-
 .ant-menu-dark.ant-menu-inline .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
     left: 4px !important;
+    margin-block: 2px;
     margin-left: 0 !important;
     border-right: 0 !important;
 }
 
-.ant-menu-vertical .ant-menu-item:not(:last-child),
-.ant-menu-vertical-left .ant-menu-item:not(:last-child),
-.ant-menu-vertical-right .ant-menu-item:not(:last-child),
-.ant-menu-inline .ant-menu-item:not(:last-child) {
-    margin: 0 !important;
+/* 悬浮状态 */
+.ant-menu-dark.ant-menu-inline .ant-menu-item:not(.ant-menu-item-selected):hover,
+.ant-menu-dark.ant-menu-vertical .ant-menu-item:not(.ant-menu-item-selected):hover,
+.ant-menu-dark.ant-menu-vertical-left .ant-menu-item:not(.ant-menu-item-selected):hover,
+.ant-menu-dark.ant-menu-vertical-right .ant-menu-item:not(.ant-menu-item-selected):hover {
+    background-color: #458ddb !important; /* 悬浮状态的背景颜色，改为偏灰色 */
+}
+
+/* 点击选中状态 */
+.ant-menu-dark.ant-menu-inline .ant-menu-item-selected,
+.ant-menu-dark.ant-menu-vertical .ant-menu-item-selected,
+.ant-menu-dark.ant-menu-vertical-left .ant-menu-item-selected,
+.ant-menu-dark.ant-menu-vertical-right .ant-menu-item-selected {
+    background-color: #096dd9 !important; /* 选中状态的背景颜色 */
 }
 
 .ant-menu-inline-collapsed>.ant-menu-item,
