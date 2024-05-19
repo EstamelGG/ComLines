@@ -40,7 +40,8 @@ const MainWindow = () => {
             height: '100vh',
             position: 'fixed',
             left: 0,
-            zIndex: 1000 // 保持在其他组件之上
+            zIndex: 1000, // 保持在其他组件之上
+            overflowX: "hidden",
           }}
         >
           <div className='logo'>

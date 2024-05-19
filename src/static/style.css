@@ -1,10 +1,10 @@
 .logo:hover {
     cursor: pointer;
-    animation: jelly 0.5s;
+    animation: jelly 0.5s infinite;
 }
 
 .logo {
-    padding-left: 17px;
+    padding-left: 18px;
     padding-top: 14px;
     margin-bottom: 10px;
 }
