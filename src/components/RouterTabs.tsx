@@ -8,7 +8,7 @@ import MSFVenom from './msfvenom/MSFBuilder'
 import SpawnTTY from './linux_terminal/TtySpawnShell'
 import Encoder from './encoding/DataEncoding';
 import Hashing from './encoding/Hashing';
-import OneLinerGenerator from './oneliner_generator/OnelinerPage';
+import OneLinerGenerator from './OnelinerGenerator/OnelinerPage';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: ['./iconfont.js']

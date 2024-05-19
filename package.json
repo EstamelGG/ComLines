@@ -44,7 +44,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "COMPILATION_TIME=$(($(date +%s) * 1000)) && echo \"REACT_APP_COMPILATION_TIME=$COMPILATION_TIME\" > .env && react-scripts build && cp build/index.html build/404.html && rm -f ./build/static/js/*.map && rm -f ./build/static/css/*.map",
+    "build": "COMPILATION_TIME=$(($(date +%s) * 1000)) && echo -n \"REACT_APP_COMPILATION_TIME=$COMPILATION_TIME\" > .env && react-scripts build && cp build/index.html build/404.html && rm -f ./build/static/js/*.map && rm -f ./build/static/css/*.map",
+    "winbuild": "echo REACT_APP_COMPILATION_TIME=0000000000000 > .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
