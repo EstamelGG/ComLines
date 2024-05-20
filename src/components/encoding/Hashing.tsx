@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input, Typography, Menu, Dropdown, Divider, message, Upload, Table, Spin } from 'antd';
-import { CopyOutlined, UploadOutlined, DownOutlined, ClearOutlined, createFromIconfontCN, SwapOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownOutlined, ClearOutlined, createFromIconfontCN } from '@ant-design/icons';
 import MD5 from 'crypto-js/md5';
 import SHA1 from 'crypto-js/sha1';
 import SHA256 from 'crypto-js/sha256';
@@ -8,7 +8,6 @@ import SHA512 from 'crypto-js/sha512';
 import CryptoJS from 'crypto-js';
 import ReferenceLinks from '../utils/reference';
 import { sm3 as SM3 } from 'sm-crypto';
-import Clipboard from 'react-clipboard.js';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -20,29 +19,17 @@ const IconFont = createFromIconfontCN({
 
 const HashEncode = () => {
     const [input, setInput] = useState<string>('');
-    const [output, setOutput] = useState('');
+    const [hashResults, setHashResults] = useState([]);
     const [fileList, setFileList] = useState([]);
     const [fileHashes, setFileHashes] = useState([]);
-    const [, setHashType] = useState('0');
     const [, setFileHashType] = useState('0');
-    const [hashname, setHashname] = useState('MD5');
     const [fileHashName, setFileHashname] = useState('MD5');
     const [calculatingHash, setCalculatingHash] = useState(false); // 添加一个状态用于表示是否正在计算哈希值
     const { t } = useTranslation();
 
-    const handleClick = (type: { key: React.SetStateAction<string | any> }) => {
-        setHashType(type.key);
-        resolvehashname(type.key);
-    };
-
     const handleFileClick = (type: { key: React.SetStateAction<string | any> }) => {
         setFileHashType(type.key);
         resolveFileHashname(type.key);
-    };
-
-    const clearAll = () => {
-        setInput('');
-        setOutput('');
     };
 
     const clearFileHash = () => {
@@ -51,10 +38,6 @@ const HashEncode = () => {
         setCalculatingHash(false);
     };
 
-    const handleSwitchButtonClick = () => {
-        setInput(output);
-        setOutput(input);
-    };
 
     const handleHash = (hashtype: string) => {
         let output: string;
@@ -77,8 +60,23 @@ const HashEncode = () => {
             default:
                 output = '';
         }
-        setOutput(output);
+        //setOutput(output);
+        return output;
     };
+
+    useEffect(() => {
+        const calculateHash = async () => {
+            const algorithms = ['MD5', 'SHA1', 'SHA256', 'SHA512', 'SM3'];
+            const results = await Promise.all(algorithms.map(async algorithm => {
+                const hashedValue = await handleHash(algorithm);
+                console.log(hashedValue)
+                return { algorithm, hashedValue };
+            }));
+            setHashResults(results);
+            
+        };
+        calculateHash();
+    }, [input]);
 
     const handleFileHash = (input, hashtype: string) => {
         let output: string;
@@ -134,35 +132,6 @@ const HashEncode = () => {
         }
     };
 
-
-    const successInfoHashing = () => {
-        if (output.length > 0) {
-            message.success(t('hash_copy'));
-        } else {
-            message.error(t('hash_copy_err'));
-        }
-    };
-
-    const resolvehashname = (hashindex: string) => {
-        switch (hashindex) {
-            case '0':
-                setHashname('MD5');
-                break;
-            case '1':
-                setHashname('SHA1');
-                break;
-            case '2':
-                setHashname('SHA256');
-                break;
-            case '3':
-                setHashname('SHA512');
-                break;
-            case '4':
-                setHashname('SM3');
-                break;
-        }
-    };
-
     const resolveFileHashname = (hashindex: string) => {
         switch (hashindex) {
             case '0':
@@ -199,6 +168,23 @@ const HashEncode = () => {
             return false; // 阻止默认的文件上传行为
         },
     };
+
+
+    const str_hash_columns = [
+        {
+            title: 'Algorithm',
+            dataIndex: 'algorithm',
+            key: 'algorithm',
+            width: 150,
+        },
+        {
+            title: 'Hash Value',
+            dataIndex: 'hashedValue',
+            key: 'hashedValue',
+            ellipsis: true,
+        },
+    ];
+
 
     const columns = [
         {
@@ -238,27 +224,6 @@ const HashEncode = () => {
             name: file.name
         }))
         : [{ key: 'Null', uid: 'Null', name: 'No File' }];
-
-    const menu = (
-        <Menu onClick={handleClick}>
-            <Menu.Item key='0' onClick={() => handleHash('MD5')}>
-                MD5
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key='1' onClick={() => handleHash('SHA1')}>
-                SHA1
-            </Menu.Item>
-            <Menu.Item key='2' onClick={() => handleHash('SHA256')}>
-                SHA256
-            </Menu.Item>
-            <Menu.Item key='3' onClick={() => handleHash('SHA512')}>
-                SHA512
-            </Menu.Item>
-            <Menu.Item key='4' onClick={() => handleHash('SM3')}>
-                SM3
-            </Menu.Item>
-        </Menu>
-    );
 
     const filehash_menu = (
         <Menu onClick={handleFileClick}>
@@ -304,58 +269,25 @@ const HashEncode = () => {
                 </div>
             </Paragraph>
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> String / Text </Divider>
-            <div key='a' style={{ margin: 15 }}>
+            <div style={{ margin: 15 }}>
                 <TextArea
                     rows={4}
                     value={input}
                     onChange={handleChange('input')}
                     placeholder='Type something to hash (ex: mysecretpassword)'
                 />
-                <Dropdown overlay={menu}>
-                    <a className='ant-dropdown-link'>
-                        {hashname} <DownOutlined style={{ padding: 10 }} />
-                    </a>
-                </Dropdown>
-                <Button
-                    type='primary'
-                    style={{ marginBottom: 10, marginTop: 15 }}
-                    onClick={() => handleHash(hashname)}
-                >
-                    <IconFont type='icon-hash' /> {t('misc_calc')}
-                </Button>
-                <Button
-                    icon={<SwapOutlined style={{ transform: 'rotate(90deg)' }} />}
-                    style={{ marginLeft: 8, marginRight: 8 }}
-                    onClick={() => handleSwitchButtonClick()}
-                >
-                    {t('misc_switch')}
-                </Button>
-            </div>
-            <div key='b' style={{ margin: 15 }}>
-                <TextArea
-                    rows={4}
-                    value={output}
-                    style={{ cursor: 'auto', marginTop: 15, color: '#777' }}
-                    placeholder='The results will appear here'
+                <Table
+                    dataSource={hashResults}
+                    columns={str_hash_columns}
+                    pagination={false}
+                    bordered
+                    style={{ marginTop: 15 }}
                 />
-                <Clipboard component='a' data-clipboard-text={output}>
-                    <Button type='primary' style={{ marginBottom: 10, marginTop: 15 }} onClick={successInfoHashing}>
-                        <CopyOutlined /> {t('misc_copy')}
-                    </Button>
-                </Clipboard>
-                <Button
-                    danger
-                    style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                    onClick={clearAll}
-                >
-                    <ClearOutlined /> {t('misc_clear')}
-                </Button>
             </div>
-
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> Multi Files </Divider>
             <div key='c' style={{ margin: 15 }}>
-                <Dropdown overlay={filehash_menu}>
-                    <a className='ant-dropdown-link'>
+                <Dropdown overlay={filehash_menu} >
+                    <a className='ant-dropdown-link' >
                         {fileHashName} <DownOutlined style={{ padding: 10 }} />
                     </a>
                 </Dropdown>
