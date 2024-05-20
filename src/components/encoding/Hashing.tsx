@@ -334,14 +334,12 @@ const HashEncode = () => {
                     rowClassName={() => 'small-height'}
                     style={{ marginTop: 15 }}
                 />
-
             </div>
             <Divider plain />
             <div>
                 <Title level={3} style={{ fontWeight: 'bold', margin: 15 }}>
                     {t('misc_ref')}
                 </Title>
-
                 <Paragraph style={{ margin: 15 }}>
                     <Text>Crack Hash: </Text>
                     <ReferenceLinks references={t('hash_enerator_reference', { returnObjects: true })} />
