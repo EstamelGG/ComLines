@@ -105,22 +105,29 @@ const HashEncode = () => {
 
     const calcFileHash = async (hashType: string) => {
         setCalculatingHash(true); // 设置状态为正在计算哈希值
-        const hashes = await Promise.all(fileList.map(file => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const binary = e.target.result;
-                    const wordArray = CryptoJS.lib.WordArray.create(binary);
-                    const hash = handleFileHash(wordArray, hashType);
-                    resolve({ uid: file.uid, hash });
-                };
-                reader.onerror = (e) => reject(e);
-                reader.readAsArrayBuffer(file); // Use the file directly
-            });
-        }));
-        setFileHashes(hashes);
-        setCalculatingHash(false); // 哈希值计算完成后，设置状态为不再计算
+        try {
+            const hashes = await Promise.all(fileList.map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const binary = e.target.result;
+                        const wordArray = CryptoJS.lib.WordArray.create(binary);
+                        const hash = handleFileHash(wordArray, hashType);
+                        resolve({ uid: file.uid, hash });
+                    };
+                    reader.onerror = (e) => reject(e);
+                    reader.readAsArrayBuffer(file); // Use the file directly
+                });
+            }));
+            setFileHashes(hashes);
+        } catch (ex) {
+            message.error("Error in Hashing");
+            console.log(ex)
+        } finally {
+            setCalculatingHash(false); // 哈希值计算完成后，设置状态为不再计算
+        }
     };
+
 
     const successInfoHashing = () => {
         if (output.length > 0) {
