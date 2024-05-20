@@ -73,7 +73,6 @@ const HashEncode = () => {
                 return { algorithm, hashedValue };
             }));
             setHashResults(results);
-
         };
         calculateHash();
     }, [input]);
