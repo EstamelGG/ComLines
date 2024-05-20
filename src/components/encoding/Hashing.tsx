@@ -5,6 +5,7 @@ import MD5 from 'crypto-js/md5';
 import SHA1 from 'crypto-js/sha1';
 import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
+import CryptoJS from 'crypto-js';
 import ReferenceLinks from '../utils/reference';
 //@ts-ignore
 import Sm3 from 'sm3';
@@ -22,15 +23,22 @@ const IconFont = createFromIconfontCN({
 const HashEncode = () => {
     const [input, setInput] = useState<string>('');
     const [output, setOutput] = useState('');
-    const [filesInput, setFInput] = useState<string>('');
-    const [filesOnput, setFOutput] = useState('');
     const [fileList, setFileList] = useState([]);
-    const [_, setHashType] = useState('0');
+    const [fileHashes, setFileHashes] = useState([]);
+    const [, setHashType] = useState('0');
+    const [, setFileHashType] = useState('0');
     const [hashname, setHashname] = useState('MD5');
+    const [fileHashName, setFileHashname] = useState('MD5');
     const { t } = useTranslation();
+
     const handleClick = (type: { key: React.SetStateAction<string | any> }) => {
         setHashType(type.key);
         resolvehashname(type.key);
+    };
+
+    const handleFilelick = (type: { key: React.SetStateAction<string | any> }) => {
+        setFileHashType(type.key);
+        resolveFileHashname(type.key);
     };
 
     const clearAll = () => {
@@ -39,8 +47,8 @@ const HashEncode = () => {
     };
 
     const clearFileHash = () => {
-        setFInput('');
-        setFOutput('');
+        setFileList([]);
+        setFileHashes([]);
     };
 
     const handleSwitchButtonClick = () => {
@@ -72,9 +80,57 @@ const HashEncode = () => {
         }
         setOutput(output);
     };
-    const successInfoHashing = () => {
-        message.success('Your hash has been copied successfully !');
+
+    const handleFileHash = (input, hashtype: string) => {
+        let output: string;
+        switch (hashtype) {
+            case 'MD5':
+                output = MD5(input, undefined).toString();
+                break;
+            case 'SHA1':
+                output = SHA1(input, undefined).toString();
+                break;
+            case 'SHA256':
+                output = SHA256(input, undefined).toString();
+                break;
+            case 'SHA512':
+                output = SHA512(input, undefined).toString();
+                break;
+            case 'SM3':
+                output = Sm3(input);
+                break;
+            default:
+                // If the hashtype is not recognized, return an empty string
+                output = '';
+        }
+        setOutput(output);
     };
+
+    const calcFileHash = async (hashType: string) => {
+        const hashes = await Promise.all(fileList.map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const binary = e.target.result;
+                    const wordArray = CryptoJS.lib.WordArray.create(binary);
+                    const hash = handleFileHash(wordArray, hashType);
+                    resolve({ uid: file.uid, hash });
+                };
+                reader.onerror = (e) => reject(e);
+                reader.readAsArrayBuffer(file.originFileObj); // Ensure file.originFileObj is passed
+            });
+        }));
+        setFileHashes(hashes);
+    };
+
+    const successInfoHashing = () => {
+        if (output.length > 0) {
+            message.success(t('hash_copy'));
+        } else {
+            message.error(t('hash_copy_err'));
+        }
+    };
+
     const resolvehashname = (hashindex: string): 'Choose the Hash type' => {
         switch (hashindex) {
             case '0':
@@ -96,18 +152,37 @@ const HashEncode = () => {
         return 'Choose the Hash type';
     };
 
+    const resolveFileHashname = (hashindex: string): 'Choose the Hash type' => {
+        switch (hashindex) {
+            case '0':
+                setFileHashname('MD5');
+                break;
+            case '1':
+                setFileHashname('SHA1');
+                break;
+            case '2':
+                setFileHashname('SHA256');
+                break;
+            case '3':
+                setFileHashname('SHA512');
+                break;
+            case '4':
+                setFileHashname('SM3');
+                break;
+        }
+        return 'Choose the Hash type';
+    };
+
     const props = {
-        multiple: false,
         beforeUpload: (file) => {
-            if (file && file.size > 10 * 1024 * 1024) { // 文件大小超过 5MB
-                const confirmUpload = window.confirm(t('fileTrans_largefile_warn'));
+            if (file && file.size > 10 * 1024 * 1024) { // 文件大小超过 10MB
+                const confirmUpload = window.confirm('The file is too large. Do you want to continue?');
                 if (!confirmUpload) {
-                    // 用户取消上传，清空文件输入框
                     return false;
                 }
             }
-            handleUpload(file);
-            return false;
+            setFileList(prevList => [...prevList, file]);
+            return false; // 阻止默认的文件上传行为
         },
     };
 
@@ -117,6 +192,7 @@ const HashEncode = () => {
 
     const handleUpload = ({ file, fileList }) => {
         setFileList(fileList);
+        setFileHashes([]); // Reset hashes when new files are uploaded
     };
 
     const columns = [
@@ -130,14 +206,17 @@ const HashEncode = () => {
             title: 'Hash Value',
             dataIndex: 'hash',
             key: 'hash',
-            // render: (text, record) => <span>{handleHash(record.name)}</span>,
+            render: (text, record) => {
+                const hashRecord = fileHashes.find(fh => fh.uid === record.uid);
+                return <span>{hashRecord ? hashRecord.hash : 'N/A'}</span>;
+            }
         },
     ];
 
     const dataSource = fileList.map(file => ({
         key: file.uid,
-        name: file.name,
-        hash: handleHash(file.name),
+        uid: file.uid,
+        name: file.name
     }));
 
     const menu = (
@@ -161,17 +240,48 @@ const HashEncode = () => {
         </Menu>
     );
 
+    const filehash_menu = (
+        <Menu onClick={handleFilelick}>
+            <Menu.Item key='0' onClick={() => calcFileHash('MD5')}>
+                MD5
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='1' onClick={() => calcFileHash('SHA1')}>
+                SHA1
+            </Menu.Item>
+            <Menu.Item key='2' onClick={() => calcFileHash('SHA256')}>
+                SHA256
+            </Menu.Item>
+            <Menu.Item key='3' onClick={() => calcFileHash('SHA512')}>
+                SHA512
+            </Menu.Item>
+            <Menu.Item key='4' onClick={() => calcFileHash('SM3')}>
+                SM3
+            </Menu.Item>
+        </Menu>
+    );
+
     const handleChange = (_name: string) => (event: { target: { value: React.SetStateAction<string> } }) => {
         setInput(event.target.value);
     };
+    const rawText = t('hash_enerator_desc');
+    const paragraphs = rawText.split('<br />');
     document.title = `${t('hash_enerator_title')} - HackTrick Checklist`;
     return (
         <div>
             <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
                 {t('hash_enerator_title')}
             </Title>
-            <Paragraph style={{ margin: 15 }}>
-                {t('hash_enerator_desc')}
+            <Paragraph style={{
+                margin: 15
+            }}>
+                <div>
+                    {paragraphs.map((paragraph, index) => (
+                        <Paragraph key={index}>
+                            {paragraph}
+                        </Paragraph>
+                    ))}
+                </div>
             </Paragraph>
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> String / Text </Divider>
             <div key='a' style={{ margin: 15 }}>
@@ -225,19 +335,20 @@ const HashEncode = () => {
                     <ClearOutlined /> {t('misc_clear')}
                 </Button>
             </div>
-
+            
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> Multi Files </Divider>
-            <div key='a' style={{ margin: 15 }}>
+            <div key='c' style={{ margin: 15 }}>
+                <Dropdown overlay={filehash_menu} >
+                    <a className='ant-dropdown-link'>
+                        {fileHashName} <DownOutlined style={{ padding: 10 }} />
+                    </a>
+                </Dropdown>
                 <Upload
+                    {...props}
                     multiple
-                    onChange={handleUpload}
+                    showUploadList={false}
                     fileList={fileList}
                 >
-                    <Dropdown overlay={menu}>
-                        <a className='ant-dropdown-link'>
-                            {hashname} <DownOutlined style={{ padding: 10 }} />
-                        </a>
-                    </Dropdown>
                     <Button icon={<UploadOutlined />}>Select Files</Button>
                 </Upload>
                 <Table
@@ -250,23 +361,22 @@ const HashEncode = () => {
                 <Button
                     type='primary'
                     style={{ marginBottom: 10, marginTop: 15 }}
-                    onClick={() => handleHash(hashname)}
+                    onClick={() => calcFileHash(fileHashName)}
+                    disabled={fileList.length === 0}
                 >
                     <IconFont type='icon-hash' /> {t('misc_calc')}
                 </Button>
                 <Button
                     danger
                     style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                    disabled={fileList.length === 0}
                     onClick={
-                        () => clearAll()
+                        () => clearFileHash()
                     }
                 >
                     <ClearOutlined /> {t('misc_clear')}
                 </Button>
             </div>
-
-
-
             <Divider plain />
             <div>
                 <Title level={3} style={{ fontWeight: 'bold', margin: 15 }}>

@@ -333,7 +333,7 @@ const FileEncodeTrans = () => {
                 </Dropdown>
                 <Space>
                     <Upload {...props} showUploadList={false} disabled={ifUploadDisabled}>
-                        <Button icon={<UploadOutlined />} style={{ marginTop: 15 }} disabled={ifUploadDisabled}>Upload</Button>
+                        <Button icon={<UploadOutlined />} style={{ marginTop: 15 }} disabled={ifUploadDisabled}>{t('misc_selectfile')}</Button>
                     </Upload>
                     <Input
                         prefix={<DownloadOutlined />}
