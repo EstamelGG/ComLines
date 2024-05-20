@@ -194,7 +194,7 @@ i18n
           data_encoder_title: '编解码器',
           data_encoder_desc: '本页提供了一些编码方式 (Base64、Hex、URL编码等)，可以帮助用户进行一些简单的编解码工作。考虑到输入输出的编码可能对结果造成影响，请尽量输入英文、数字、字母，避免使用容易出现乱码的语言和文字。',
           hash_enerator_title: '哈希计算器',
-          hash_enerator_desc: 'Hash，一般翻译做散列、杂凑，或音译为哈希，是把任意长度的输入 (又叫做预映射pre-image) 通过散列算法变换成固定长度的输出，该输出就是散列值。<br />考虑到换行符的区别(CR、LF)，在不同平台下计算结果可能不同。',
+          hash_enerator_desc: '该页面提供一些常见的哈希计算功能，包括：MD5、SHA、国密算法，还能够选择本机的多个文件进行计算。<br />计算多行字符串的哈希时，考虑到换行符的区别(CR、LF)，在不同平台下计算结果可能不同。<br />文末参考部分提供了一些能够检索已知哈希的网站。',
           hash_enerator_reference: [
             {'title': 'Decrypt MD5, SHA1, MySQL, NTLM, SHA256, MD5 Email, SHA256 Email, SHA512, Wordpress, Bcrypt hashes for free online', 'link': 'https://hashes.com/en/decrypt/hash'},
             {'title': 'Crackstation', 'link': 'https://crackstation.net/'},

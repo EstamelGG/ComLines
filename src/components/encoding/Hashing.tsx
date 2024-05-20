@@ -7,10 +7,8 @@ import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
 import CryptoJS from 'crypto-js';
 import ReferenceLinks from '../utils/reference';
-//@ts-ignore
 import Sm3 from 'sm3';
 import Clipboard from 'react-clipboard.js';
-//
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -36,7 +34,7 @@ const HashEncode = () => {
         resolvehashname(type.key);
     };
 
-    const handleFilelick = (type: { key: React.SetStateAction<string | any> }) => {
+    const handleFileClick = (type: { key: React.SetStateAction<string | any> }) => {
         setFileHashType(type.key);
         resolveFileHashname(type.key);
     };
@@ -60,22 +58,21 @@ const HashEncode = () => {
         let output: string;
         switch (hashtype) {
             case 'MD5':
-                output = MD5(input, undefined).toString();
+                output = MD5(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA1':
-                output = SHA1(input, undefined).toString();
+                output = SHA1(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA256':
-                output = SHA256(input, undefined).toString();
+                output = SHA256(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA512':
-                output = SHA512(input, undefined).toString();
+                output = SHA512(input, undefined).toString().toUpperCase();
                 break;
             case 'SM3':
-                output = Sm3(input);
+                output = Sm3(input).toString().toUpperCase();
                 break;
             default:
-                // If the hashtype is not recognized, return an empty string
                 output = '';
         }
         setOutput(output);
@@ -85,25 +82,24 @@ const HashEncode = () => {
         let output: string;
         switch (hashtype) {
             case 'MD5':
-                output = MD5(input, undefined).toString();
+                output = MD5(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA1':
-                output = SHA1(input, undefined).toString();
+                output = SHA1(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA256':
-                output = SHA256(input, undefined).toString();
+                output = SHA256(input, undefined).toString().toUpperCase();
                 break;
             case 'SHA512':
-                output = SHA512(input, undefined).toString();
+                output = SHA512(input, undefined).toString().toUpperCase();
                 break;
             case 'SM3':
-                output = Sm3(input);
+                output = Sm3(input).toString().toUpperCase();
                 break;
             default:
-                // If the hashtype is not recognized, return an empty string
                 output = '';
         }
-        setOutput(output);
+        return output; // Return the computed hash
     };
 
     const calcFileHash = async (hashType: string) => {
@@ -117,7 +113,7 @@ const HashEncode = () => {
                     resolve({ uid: file.uid, hash });
                 };
                 reader.onerror = (e) => reject(e);
-                reader.readAsArrayBuffer(file.originFileObj); // Ensure file.originFileObj is passed
+                reader.readAsArrayBuffer(file); // Use the file directly
             });
         }));
         setFileHashes(hashes);
@@ -131,7 +127,7 @@ const HashEncode = () => {
         }
     };
 
-    const resolvehashname = (hashindex: string): 'Choose the Hash type' => {
+    const resolvehashname = (hashindex: string) => {
         switch (hashindex) {
             case '0':
                 setHashname('MD5');
@@ -149,10 +145,9 @@ const HashEncode = () => {
                 setHashname('SM3');
                 break;
         }
-        return 'Choose the Hash type';
     };
 
-    const resolveFileHashname = (hashindex: string): 'Choose the Hash type' => {
+    const resolveFileHashname = (hashindex: string) => {
         switch (hashindex) {
             case '0':
                 setFileHashname('MD5');
@@ -170,7 +165,6 @@ const HashEncode = () => {
                 setFileHashname('SM3');
                 break;
         }
-        return 'Choose the Hash type';
     };
 
     const props = {
@@ -200,7 +194,10 @@ const HashEncode = () => {
             title: 'File Name',
             dataIndex: 'name',
             key: 'name',
-            render: text => <span>{text}</span>,
+            render: text => <span style={{ wordBreak: 'break-all' }}>{text}</span>,
+            style: { wordBreak: 'break-all' },
+            width: 300,
+            sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
             title: 'Hash Value',
@@ -208,16 +205,19 @@ const HashEncode = () => {
             key: 'hash',
             render: (text, record) => {
                 const hashRecord = fileHashes.find(fh => fh.uid === record.uid);
-                return <span>{hashRecord ? hashRecord.hash : 'N/A'}</span>;
-            }
+                return <span style={{ wordBreak: 'break-all' }}>{hashRecord ? hashRecord.hash : 'Null'}</span>;
+            },
+            style: { wordBreak: 'break-all' },
         },
     ];
 
-    const dataSource = fileList.map(file => ({
-        key: file.uid,
-        uid: file.uid,
-        name: file.name
-    }));
+    const dataSource = fileList.length > 0
+        ? fileList.map(file => ({
+            key: file.uid,
+            uid: file.uid,
+            name: file.name
+        }))
+        : [{ key: 'Null', uid: 'Null', name: 'No File' }];
 
     const menu = (
         <Menu onClick={handleClick}>
@@ -241,7 +241,7 @@ const HashEncode = () => {
     );
 
     const filehash_menu = (
-        <Menu onClick={handleFilelick}>
+        <Menu onClick={handleFileClick}>
             <Menu.Item key='0' onClick={() => calcFileHash('MD5')}>
                 MD5
             </Menu.Item>
@@ -264,17 +264,17 @@ const HashEncode = () => {
     const handleChange = (_name: string) => (event: { target: { value: React.SetStateAction<string> } }) => {
         setInput(event.target.value);
     };
+
     const rawText = t('hash_enerator_desc');
     const paragraphs = rawText.split('<br />');
     document.title = `${t('hash_enerator_title')} - HackTrick Checklist`;
+
     return (
         <div>
             <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
                 {t('hash_enerator_title')}
             </Title>
-            <Paragraph style={{
-                margin: 15
-            }}>
+            <Paragraph style={{ margin: 15 }}>
                 <div>
                     {paragraphs.map((paragraph, index) => (
                         <Paragraph key={index}>
@@ -306,9 +306,7 @@ const HashEncode = () => {
                 <Button
                     icon={<SwapOutlined style={{ transform: 'rotate(90deg)' }} />}
                     style={{ marginLeft: 8, marginRight: 8 }}
-                    onClick={(e) => {
-                        handleSwitchButtonClick();
-                    }}
+                    onClick={() => handleSwitchButtonClick()}
                 >
                     {t('misc_switch')}
                 </Button>
@@ -328,17 +326,15 @@ const HashEncode = () => {
                 <Button
                     danger
                     style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                    onClick={
-                        () => clearAll()
-                    }
+                    onClick={clearAll}
                 >
                     <ClearOutlined /> {t('misc_clear')}
                 </Button>
             </div>
-            
+
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> Multi Files </Divider>
             <div key='c' style={{ margin: 15 }}>
-                <Dropdown overlay={filehash_menu} >
+                <Dropdown overlay={filehash_menu}>
                     <a className='ant-dropdown-link'>
                         {fileHashName} <DownOutlined style={{ padding: 10 }} />
                     </a>
@@ -349,8 +345,29 @@ const HashEncode = () => {
                     showUploadList={false}
                     fileList={fileList}
                 >
-                    <Button icon={<UploadOutlined />}>Select Files</Button>
+                    <Button
+                        icon={<UploadOutlined />}
+                        style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                    >
+                        Select Files
+                    </Button>
                 </Upload>
+                <Button
+                        type='primary'
+                        style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                        onClick={() => calcFileHash(fileHashName)}
+                        disabled={fileList.length === 0}
+                    >
+                        <IconFont type='icon-hash' /> {t('misc_calc')}
+                    </Button>
+                    <Button
+                        danger
+                        style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                        disabled={fileList.length === 0}
+                        onClick={clearFileHash}
+                    >
+                        <ClearOutlined /> {t('misc_clear')}
+                    </Button>
                 <Table
                     dataSource={dataSource}
                     columns={columns}
@@ -358,24 +375,7 @@ const HashEncode = () => {
                     rowClassName={() => 'small-height'}
                     style={{ marginTop: 15 }}
                 />
-                <Button
-                    type='primary'
-                    style={{ marginBottom: 10, marginTop: 15 }}
-                    onClick={() => calcFileHash(fileHashName)}
-                    disabled={fileList.length === 0}
-                >
-                    <IconFont type='icon-hash' /> {t('misc_calc')}
-                </Button>
-                <Button
-                    danger
-                    style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                    disabled={fileList.length === 0}
-                    onClick={
-                        () => clearFileHash()
-                    }
-                >
-                    <ClearOutlined /> {t('misc_clear')}
-                </Button>
+
             </div>
             <Divider plain />
             <div>
@@ -383,12 +383,9 @@ const HashEncode = () => {
                     {t('misc_ref')}
                 </Title>
 
-                <Paragraph style={{
-                    margin: 15
-                }}>
+                <Paragraph style={{ margin: 15 }}>
                     <Text>Crack Hash: </Text>
                     <ReferenceLinks references={t('hash_enerator_reference', { returnObjects: true })} />
-                    {/* 自定义的参考链接展示 */}
                 </Paragraph>
             </div>
         </div>
