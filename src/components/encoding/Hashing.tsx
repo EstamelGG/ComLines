@@ -48,6 +48,7 @@ const HashEncode = () => {
     const clearFileHash = () => {
         setFileList([]);
         setFileHashes([]);
+        setCalculatingHash(false);
     };
 
     const handleSwitchButtonClick = () => {
@@ -176,9 +177,13 @@ const HashEncode = () => {
                 break;
         }
     };
-
+    const MAX_FILE_SIZE = 50 * 1024 * 1024; // 默认最大文件大小
     const props = {
         beforeUpload: (file) => {
+            if (file && file.size > MAX_FILE_SIZE) {
+                message.error(`Max size: ${MAX_FILE_SIZE / (1024 * 1024)} MB.`);
+                return false; // 文件大小超出限制，阻止上传
+            }
             if (file && file.size > 10 * 1024 * 1024) { // 文件大小超过 10MB
                 const confirmUpload = window.confirm('The file is too large. Do you want to continue?');
                 if (!confirmUpload) {
