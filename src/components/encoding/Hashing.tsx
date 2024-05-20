@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input, Typography, Menu, Dropdown, Divider, message, Upload, Table } from 'antd';
+import { Button, Input, Typography, Menu, Dropdown, Divider, message, Upload, Table, Spin } from 'antd';
 import { CopyOutlined, UploadOutlined, DownOutlined, ClearOutlined, createFromIconfontCN, SwapOutlined } from '@ant-design/icons';
 import MD5 from 'crypto-js/md5';
 import SHA1 from 'crypto-js/sha1';
@@ -27,6 +27,7 @@ const HashEncode = () => {
     const [, setFileHashType] = useState('0');
     const [hashname, setHashname] = useState('MD5');
     const [fileHashName, setFileHashname] = useState('MD5');
+    const [calculatingHash, setCalculatingHash] = useState(false); // 添加一个状态用于表示是否正在计算哈希值
     const { t } = useTranslation();
 
     const handleClick = (type: { key: React.SetStateAction<string | any> }) => {
@@ -103,6 +104,7 @@ const HashEncode = () => {
     };
 
     const calcFileHash = async (hashType: string) => {
+        setCalculatingHash(true); // 设置状态为正在计算哈希值
         const hashes = await Promise.all(fileList.map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -117,6 +119,7 @@ const HashEncode = () => {
             });
         }));
         setFileHashes(hashes);
+        setCalculatingHash(false); // 哈希值计算完成后，设置状态为不再计算
     };
 
     const successInfoHashing = () => {
@@ -180,15 +183,6 @@ const HashEncode = () => {
         },
     };
 
-    const handleFileSelectChange = (setter) => (e) => {
-        setter(e.target.value);
-    };
-
-    const handleUpload = ({ file, fileList }) => {
-        setFileList(fileList);
-        setFileHashes([]); // Reset hashes when new files are uploaded
-    };
-
     const columns = [
         {
             title: 'File Name',
@@ -206,7 +200,15 @@ const HashEncode = () => {
             key: 'hash',
             render: (text, record) => {
                 const hashRecord = fileHashes.find(fh => fh.uid === record.uid);
-                return <span style={{ wordBreak: 'break-all' }}>{hashRecord ? hashRecord.hash : 'Null'}</span>;
+                return hashRecord ? (
+                    <span style={{ wordBreak: 'break-all' }}>{hashRecord.hash}</span>
+                ) : (
+                    calculatingHash ? (
+                        <Spin size="small" />
+                    ) : (
+                        'Not Available'
+                    )
+                );
             },
             style: { wordBreak: 'break-all' },
         },
