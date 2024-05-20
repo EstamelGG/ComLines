@@ -204,7 +204,7 @@ i18n
           hash_copy: '已复制 Hash 到剪贴板',
           hash_copy_err: '没什么可以复制的',
           oneliner_title: '单行命令行压缩 (OneLiner)',
-          oneliner_desc: '将 bash 命令、powershell 命令、cmd命令、python脚本等多行的、含有特殊符号的命令行压缩到一行，以提高隐蔽性，减少干扰。<br />编码模式中 Multi 指各种跨平台脚本环境。<br />编码时只需要传入对应语言的 payload 即可<br />Bash b64/hex/rot47: 需要 Bash 命令行或 Bash 脚本<br />Python: 需要输入python代码<br />Powershell: 需要 powershell 代码 (不需要 powershell -c 等部分)',
+          oneliner_desc: '将 bash 命令、powershell 命令、cmd命令、python脚本等多行的、含有特殊符号的命令行压缩到一行，以提高隐蔽性，减少干扰。<br />编码模式中 Multi 指各种跨平台脚本环境。<br />编码时只需要传入对应语言的 payload 即可<br />Bash b64/hex/rot47: 需要 Bash 命令行或 Bash 脚本<br />Python: 需要输入python代码<br />Powershell: 需要 powershell 代码 (不需要 powershell -c 等部分)<br />考虑到输入输出的编码可能对结果造成影响，请尽量输入英文、数字、字母，并避免使用容易出现乱码的语言和文字。',
         }
       }
     },
