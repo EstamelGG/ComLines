@@ -7,7 +7,7 @@ import SHA256 from 'crypto-js/sha256';
 import SHA512 from 'crypto-js/sha512';
 import CryptoJS from 'crypto-js';
 import ReferenceLinks from '../utils/reference';
-import Sm3 from 'sm3';
+import { sm3 as SM3 } from 'sm-crypto';
 import Clipboard from 'react-clipboard.js';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
@@ -72,7 +72,7 @@ const HashEncode = () => {
                 output = SHA512(input, undefined).toString().toUpperCase();
                 break;
             case 'SM3':
-                output = Sm3(input).toString().toUpperCase();
+                output = SM3(input).toString().toUpperCase();
                 break;
             default:
                 output = '';
@@ -82,24 +82,29 @@ const HashEncode = () => {
 
     const handleFileHash = (input, hashtype: string) => {
         let output: string;
-        switch (hashtype) {
-            case 'MD5':
-                output = MD5(input, undefined).toString().toUpperCase();
-                break;
-            case 'SHA1':
-                output = SHA1(input, undefined).toString().toUpperCase();
-                break;
-            case 'SHA256':
-                output = SHA256(input, undefined).toString().toUpperCase();
-                break;
-            case 'SHA512':
-                output = SHA512(input, undefined).toString().toUpperCase();
-                break;
-            case 'SM3':
-                output = Sm3(input).toString().toUpperCase();
-                break;
-            default:
-                output = '';
+        try {
+            switch (hashtype) {
+                case 'MD5':
+                    output = MD5(input, undefined).toString().toUpperCase();
+                    break;
+                case 'SHA1':
+                    output = SHA1(input, undefined).toString().toUpperCase();
+                    break;
+                case 'SHA256':
+                    output = SHA256(input, undefined).toString().toUpperCase();
+                    break;
+                case 'SHA512':
+                    output = SHA512(input, undefined).toString().toUpperCase();
+                    break;
+                // case 'SM3':
+                //     output = SM3(input.toString(CryptoJS.enc.Latin1)).toString().toUpperCase();
+                //     break;
+                default:
+                    output = '';
+            }
+        } catch (ex) {
+            output = 'Fail';
+            console.log(ex)
         }
         return output; // Return the computed hash
     };
@@ -123,7 +128,7 @@ const HashEncode = () => {
             setFileHashes(hashes);
         } catch (ex) {
             message.error("Error in Hashing");
-            console.log(ex)
+            //console.log(ex)
         } finally {
             setCalculatingHash(false); // 哈希值计算完成后，设置状态为不再计算
         }
@@ -172,9 +177,9 @@ const HashEncode = () => {
             case '3':
                 setFileHashname('SHA512');
                 break;
-            case '4':
-                setFileHashname('SM3');
-                break;
+            // case '4':
+            //     setFileHashname('SM3');
+            //     break;
         }
     };
     const MAX_FILE_SIZE = 50 * 1024 * 1024; // 默认最大文件大小
@@ -270,9 +275,9 @@ const HashEncode = () => {
             <Menu.Item key='3' onClick={() => calcFileHash('SHA512')}>
                 SHA512
             </Menu.Item>
-            <Menu.Item key='4' onClick={() => calcFileHash('SM3')}>
+            {/* <Menu.Item key='4' onClick={() => calcFileHash('SM3')}>
                 SM3
-            </Menu.Item>
+            </Menu.Item> */}
         </Menu>
     );
 
