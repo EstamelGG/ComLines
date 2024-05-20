@@ -353,22 +353,23 @@ const HashEncode = () => {
                     </Button>
                 </Upload>
                 <Button
-                        type='primary'
-                        style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                        onClick={() => calcFileHash(fileHashName)}
-                        disabled={fileList.length === 0}
-                    >
-                        <IconFont type='icon-hash' /> {t('misc_calc')}
-                    </Button>
-                    <Button
-                        danger
-                        style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
-                        disabled={fileList.length === 0}
-                        onClick={clearFileHash}
-                    >
-                        <ClearOutlined /> {t('misc_clear')}
-                    </Button>
+                    type='primary'
+                    style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                    onClick={() => calcFileHash(fileHashName)}
+                    disabled={fileList.length === 0}
+                >
+                    <IconFont type='icon-hash' /> {t('misc_calc')}
+                </Button>
+                <Button
+                    danger
+                    style={{ marginBottom: 10, marginTop: 15, marginLeft: 15 }}
+                    disabled={fileList.length === 0}
+                    onClick={clearFileHash}
+                >
+                    <ClearOutlined /> {t('misc_clear')}
+                </Button>
                 <Table
+                    size="small"
                     dataSource={dataSource}
                     columns={columns}
                     pagination={false}
