@@ -284,6 +284,7 @@ const HashEncode = () => {
                     dataSource={hashResults}
                     columns={str_hash_columns}
                     pagination={false}
+                    size="small"
                     bordered
                     style={{ marginTop: 15 }}
                 />
