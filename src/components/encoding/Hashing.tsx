@@ -194,6 +194,7 @@ const HashEncode = () => {
             title: 'File Name',
             dataIndex: 'name',
             key: 'name',
+            ellipsis: true,
             render: text => <span style={{ wordBreak: 'break-all' }}>{text}</span>,
             style: { wordBreak: 'break-all' },
             width: 300,
@@ -372,6 +373,7 @@ const HashEncode = () => {
                     size="small"
                     dataSource={dataSource}
                     columns={columns}
+                    bordered
                     pagination={false}
                     rowClassName={() => 'small-height'}
                     style={{ marginTop: 15 }}
