@@ -73,7 +73,7 @@ const HashEncode = () => {
                 return { algorithm, hashedValue };
             }));
             setHashResults(results);
-            
+
         };
         calculateHash();
     }, [input]);
@@ -181,7 +181,12 @@ const HashEncode = () => {
             title: 'Hash Value',
             dataIndex: 'hashedValue',
             key: 'hashedValue',
-            ellipsis: true,
+            ellipsis: false,
+            render: text => (
+                <Text copyable>
+                    {text}
+                </Text>
+            ),
         },
     ];
 
