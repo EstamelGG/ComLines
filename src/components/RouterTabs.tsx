@@ -6,6 +6,10 @@ import PHPWebShell from './revShell/PHPWebShell';
 import FileEncodeTrans from './file_transfer/ObfuscatedFiles';
 import MSFVenom from './msfvenom/MSFBuilder'
 import SpawnTTY from './linux_terminal/TtySpawnShell'
+import linuxCmd from './commandlines/linuxCmd'
+import windowsCmd from './commandlines/windowsCmd'
+import PowershellAndDomain from './commandlines/PowershellCommands'
+import FileTransfer from './file_transfer/File_transfer'
 import Encoder from './encoding/DataEncoding';
 import Hashing from './encoding/Hashing';
 import OneLinerGenerator from './OnelinerGenerator/OnelinerPage';
@@ -52,35 +56,63 @@ const Tabs: Array<IRouterComponent> = [
     component: SpawnTTY
   },
   {
-    key: '10',
+    key: '5',
+    icon: <IconFont type='icon-linux' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Useful Linux Command',
+    path: '/linuxCmd',
+    component: linuxCmd
+  },
+  {
+    key: '6',
+    icon: <IconFont type='icon-windows-fill' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Useful Windows Command',
+    path: '/windowsCmd',
+    component: windowsCmd
+  },
+  {
+    key: '7',
+    icon: <IconFont type='icon-powershell' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Useful powershell Command',
+    path: '/powershell',
+    component: PowershellAndDomain
+  },
+  {
+    key: '8',
+    icon: <IconFont type='icon-transfer' style={{ fontSize: '1.5em', marginTop: 3 }} />,
+    name: 'Transfer Methods',
+    path: '/FileTrans',
+    component: FileTransfer
+  },
+  {
+    key: '9',
     icon: <IconFont type='icon-jiemaleixing' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Data Encoder',
     path: '/Encoder',
     component: Encoder
   },
   {
-    key: '11',
+    key: '10',
     icon: <IconFont type='icon-yasuo' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'OneLiner',
     path: '/OneLiner',
     component: OneLinerGenerator
   },
   {
-    key: '12',
+    key: '11',
     icon: <IconFont type='icon-Encode-File' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Obfuscated Files',
     path: '/FileEncodeTrans',
     component: FileEncodeTrans
   },
   {
-    key: '13',
+    key: '12',
     icon: <IconFont type='icon-hash' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'Calc Hash',
     path: '/Hashing',
     component: Hashing
   },
   {
-    key: '15',
+    key: '13',
     icon: <IconFont type='icon-shield' style={{ fontSize: '1.5em', marginTop: 3 }} />,
     name: 'MSFVenom',
     path: '/MSFVenom',

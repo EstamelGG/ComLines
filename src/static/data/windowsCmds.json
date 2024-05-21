@@ -1,0 +1,56 @@
+{
+	"getSystemAndUserInfo": [
+		"wmic OS get Caption,CSDVersion,OSArchitecture,Version",
+		"wmic os get osarchitecture",
+		"wmic useraccount list brief",
+        "systeminfo",
+		"whoami /USER",
+		"whoami /PRIV",
+		"whoami /GROUPS",
+        "whoami /ALL",
+        "net config Workstation",
+        "query user",
+        "net user",
+        "powershell -c Get-WmiObject Win32_ComputerSystem",
+        "powershell -c \"echo \\\"$env:COMPUTERNAME.$env:USERDNSDOMAIN\\\"\"",
+        "powershell -c \"Get-Hotfix -description 'Security update'\"",
+        "powershell -c \"Get-ChildItem Env: | ft Key,Value\""
+	],
+    "getService": [
+        "wmic service list brief",
+		"net start",
+        "sc query"
+	],
+    "getNetWorkInfo": [
+		"arp -a",
+        "route print",
+        "ipconfig /all",
+        "netstat -ant | findstr LISTEN",
+        "netstat -ano | findstr LISTEN",
+        "tasklist | findstr 8480",
+        "tasklist /SVC|findstr 8480"
+	],
+    "getProcess": [
+        "wmic process list brief",
+        "wmic process where name=\"chrome.exe\" get executablepath",
+        "wmic process get caption,commandline /value",
+        "wmic process where caption=\"svchost.exe\" get caption,commandline /value",
+        "wmic process where processid=4336 get executablepath,name",
+        "wmic startup list brief"
+    ],
+    "getMiscInfo": [
+        "wmic /Node:localhost /Namespace:\\\\root\\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List",
+        "wmic qfe list brief",
+        "wmic ntdomain list brief",
+        "wmic netuse list brief"
+    ],
+    "Service": [
+        "sc create MyService binPath= \"C:\\Path\\To\\Your\\Service.exe\" displayname= \"My Service Display Name\" description= \"Your service description.\"",
+        "sc config MyService start= auto", 
+        "sc config MyService type= own & sc start MyService"
+    ],
+    "wlan": [
+        "netsh wlan show profiles",
+        "netsh wlan show profile name=\"PROFILE-NAME\" key=clear"
+    ]
+}
