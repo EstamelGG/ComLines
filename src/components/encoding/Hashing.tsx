@@ -11,7 +11,7 @@ import { sm3 as SM3 } from 'sm-crypto';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph, Text, Link } = Typography;
 const { TextArea } = Input;
 const IconFont = createFromIconfontCN({
     scriptUrl: ['./iconfont.js']
@@ -270,6 +270,11 @@ const HashEncode = () => {
                             {paragraph}
                         </Paragraph>
                     ))}
+                </div>
+            </Paragraph>
+            <Paragraph style={{ margin: 15 }}>
+                <div>
+                - <Link href="../files/Md5CheckerCn.exe" target='_blank'>Get Md5CheckerCn</Link>
                 </div>
             </Paragraph>
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> String / Text </Divider>
