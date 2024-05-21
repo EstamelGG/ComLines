@@ -274,7 +274,7 @@ const HashEncode = () => {
             </Paragraph>
             <Paragraph style={{ margin: 15 }}>
                 <div>
-                - <Link href="../files/Md5CheckerCn.exe" target='_blank'>Get Md5CheckerCn</Link>
+                - <Link href="./files/Md5CheckerCn.exe" target='_blank'>Get Md5CheckerCn</Link>
                 </div>
             </Paragraph>
             <Divider orientation="center" style={{ borderTopColor: 'black' }}> String / Text </Divider>
