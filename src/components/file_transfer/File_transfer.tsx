@@ -16,8 +16,8 @@ export default function FileTransfer() {
     const useIPv4State = PersistedState<Ipv4TcpCacheState>('ipv4_tcp_cache');
     const { t } = useTranslation();
     const [values, setValues] = useIPv4State({
-        ip: '',
-        port: '',
+        ip: '192.168.0.1',
+        port: '9090',
         target_file_name: 'http://10.0.0.1/mimikatz.exe',
         output_file_name: 'mimikatz.exe',
     });
@@ -111,188 +111,178 @@ ftp -v -s:ftp.txt`
             </div>
             <Divider dashed />
             <div style={{ padding: 10, marginTop: 15 }} key='a'>
-                <Space direction='vertical'>
-                    <Title level={3}>
-                        {t('filetrans_ps')}
-                    </Title>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {fileDownload}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {fileDownloadAsync}
-                            </Text>
-                        </pre>
-                    </Text>
-                </Space>
+                <Title level={3}>
+                    {t('filetrans_ps')}
+                </Title>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {fileDownload}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {fileDownloadAsync}
+                        </Text>
+                    </pre>
+                </Text>
             </div>
             <Divider dashed />
             <div style={{ padding: 10, marginTop: 15 }} key='a'>
-                <Space direction='vertical'>
-                    <Title level={3}>
-                        {t('filetrans_psfl')}
-                    </Title>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {fileLessIEX}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {fileLessIEXPipe}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {b64_fileLessIEX}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Title level={4}>{t('filetrans_psfl_webrequest')}</Title>
-                    <Text>
-                        {t('filetrans_psfl_webrequest_desc')}
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {InvokeWebRequest}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {iwr}
-                            </Text>
-                        </pre>
-                    </Text>
-                </Space>
+                <Title level={3}>
+                    {t('filetrans_psfl')}
+                </Title>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {fileLessIEX}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {fileLessIEXPipe}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {b64_fileLessIEX}
+                        </Text>
+                    </pre>
+                </Text>
+                <Title level={4}>{t('filetrans_psfl_webrequest')}</Title>
+                <Text>
+                    {t('filetrans_psfl_webrequest_desc')}
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {InvokeWebRequest}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {iwr}
+                        </Text>
+                    </pre>
+                </Text>
             </div>
             <Divider dashed />
             <div style={{ padding: 15, marginTop: 15 }}>
-                <Space direction='vertical'>
-                    <Title level={3}>
-                        {t('filetrans_smb')}
-                    </Title>
-                    <Text>
-                        {t('filetrans_smb_desc_1')}
-                    </Text>
-                    <Text>
-                        {t('filetrans_smb_desc_2')}
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                sudo impacket-smbserver share -smb2support /tmp/smb_share
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {copyFromSmb}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text italic>{t('filetrans_smb_desc_3')}</Text>
-                    <Text italic>{t('filetrans_smb_desc_4')}</Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                sudo impacket-smbserver share -smb2support /tmp/smbshare -user johnDoe -password Sup3rP@ssw0rd!
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {mountShareWithPasswords}
-                            </Text>
-                        </pre>
-                    </Text>
-                </Space>
+                <Title level={3}>
+                    {t('filetrans_smb')}
+                </Title>
+                <Text>
+                    {t('filetrans_smb_desc_1')}
+                </Text>
+                <Text>
+                    {t('filetrans_smb_desc_2')}
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            sudo impacket-smbserver share -smb2support /tmp/smb_share
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {copyFromSmb}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text italic>{t('filetrans_smb_desc_3')}</Text>
+                <Text italic>{t('filetrans_smb_desc_4')}</Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            sudo impacket-smbserver share -smb2support /tmp/smbshare -user johnDoe -password Sup3rP@ssw0rd!
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {mountShareWithPasswords}
+                        </Text>
+                    </pre>
+                </Text>
             </div>
             <Divider dashed />
             <div style={{ padding: 15, marginTop: 15 }}>
-                <Space direction='vertical'>
-                    <Title level={3}>
-                        {t('filetrans_ftp')}
-                    </Title>
-                    <Text>
-                        {t('filetrans_ftp_desc')}
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                sudo pip3 install pyftpdlib
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                sudo python3 -m pyftpdlib --port 21
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Title level={4}>{t('filetrans_ftp_ps')}</Title>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {DownloadFromFTP}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {scriptFTP}
-                            </Text>
-                        </pre>
-                    </Text>
-                </Space>
+                <Title level={3}>
+                    {t('filetrans_ftp')}
+                </Title>
+                <Text>
+                    {t('filetrans_ftp_desc')}
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            sudo pip3 install pyftpdlib
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            sudo python3 -m pyftpdlib --port 21
+                        </Text>
+                    </pre>
+                </Text>
+                <Title level={4}>{t('filetrans_ftp_ps')}</Title>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {DownloadFromFTP}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {scriptFTP}
+                        </Text>
+                    </pre>
+                </Text>
             </div>
             <div style={{ padding: 15, marginTop: 15 }}>
-                <Space direction='vertical'>
-                    <Title level={3}>
-                        {t('filetrans_ftp_up')}
-                    </Title>
-                    <Text>
-                        {t('filetrans_ftp_desc')}
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                sudo python3 -m pyftpdlib --port 21 --write
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Title level={4}>{t('filetrans_ftp_ps')}</Title>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {powershellFTPUpload}
-                            </Text>
-                        </pre>
-                    </Text>
-                    <Text>
-                        <pre>
-                            <Text copyable>
-                                {scriptUploadFTP}
-                            </Text>
-                        </pre>
-                    </Text>
-                </Space>
+                <Title level={3}>
+                    {t('filetrans_ftp_up')}
+                </Title>
+                <Text>
+                    {t('filetrans_ftp_desc')}
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            sudo python3 -m pyftpdlib --port 21 --write
+                        </Text>
+                    </pre>
+                </Text>
+                <Title level={4}>{t('filetrans_ftp_ps')}</Title>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {powershellFTPUpload}
+                        </Text>
+                    </pre>
+                </Text>
+                <Text>
+                    <pre>
+                        <Text copyable>
+                            {scriptUploadFTP}
+                        </Text>
+                    </pre>
+                </Text>
             </div>
         </div>
     );

@@ -39,8 +39,8 @@ export default function ReverseShell() {
     const searchInput = useRef<InputRef>(null);
     const [str_random, setStrRandom] = useState(randomString());
     const [values, setValues] = useIPv4State({
-        ip: '',
-        port: '',
+        ip: '192.168.0.1',
+        port: '9090',
         shell: '/bin/sh',
     });
 
@@ -58,8 +58,8 @@ export default function ReverseShell() {
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.hash.substring(1));
-        const dip = params.get("ip") || "";
-        const dport = params.get("port") || "";
+        const dip = params.get("ip") || "192.168.0.1";
+        const dport = params.get("port") || "9090";
         const shell = params.get("shell") || "/bin/sh";
         setSearchText(params.get("name") || "");
         setValues((prevValues) => ({
