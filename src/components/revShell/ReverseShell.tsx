@@ -39,8 +39,8 @@ export default function ReverseShell() {
     const searchInput = useRef<InputRef>(null);
     const [str_random, setStrRandom] = useState(randomString());
     const [values, setValues] = useIPv4State({
-        ip: '192.168.0.1',
-        port: '9090',
+        ip: '',
+        port: '',
         shell: '/bin/sh',
     });
 
