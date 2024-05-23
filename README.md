@@ -21,10 +21,6 @@ npm start
 
     大括号绕过
 
-2. 设计基于powershell的内存加载exe模块
+2. Linux 搬一些 [gtfobins](https://gtfobins.github.io/) 上的常用提权组件来，再列举一些常见的提权cve
 
-3. Linux 搬一些 [gtfobins](https://gtfobins.github.io/) 上的常用提权组件来，再列举一些常见的提权cve
-
-4. CTF like 字符串绕过
-
-5. 点分十进制转换、IP转八进制十进制等
+3. 点分十进制转换、IP转八进制十进制等
