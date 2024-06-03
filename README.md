@@ -1,26 +1,5 @@
-# 编译
+We copied the same functionality from HackTools, fixed bugs and transformed the original browser extension into this web page. It now allows parameters to be received via hashroute to share page content.
 
-```
-npm install --force
-npm start
-```
+[https://estamelgg.github.io/ComLines/](https://estamelgg.github.io/ComLines/)
 
-# todo
-
-1. [done] 设计一个命令行 oneliner 编码器，提供：
-
-    linux b64
-
-    linux hex
-
-    linux rot47
-
-    powershell b64
-
-    python + zlib + b64 命令执行
-
-    大括号绕过
-
-2. Linux 搬一些 [gtfobins](https://gtfobins.github.io/) 上的常用提权组件来，再列举一些常见的提权cve
-
-3. 点分十进制转换、IP转八进制十进制等
+Additionally, the website has added several new features, including "Oneliner."
