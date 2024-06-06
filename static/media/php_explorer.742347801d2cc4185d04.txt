@@ -1,0 +1,55 @@
+<?php
+$directory = isset($_GET['dir']) ? $_GET['dir'] : __DIR__;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+    $targetDir = rtrim($directory, '/') . '/';
+    $targetFile = $targetDir . basename($_FILES['file']['name']);
+    move_uploaded_file($_FILES['file']['tmp_name'], $targetFile);
+}
+if (isset($_GET['dir'])) {
+    chdir($_GET['dir']);
+}
+$files = scandir($directory);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Manager</title>
+</head>
+<body>
+    <h1>File Manager</h1>
+
+    <h2>Current Directory: <?php echo $directory; ?></h2>
+
+    <h3>Directories:</h3>
+    <ul>
+        <?php foreach ($files as $file): ?>
+            <?php if (is_dir($directory . '/' . $file) && $file !== '.' && $file !== '..'): ?>
+                <li><a href="?dir=<?php echo $directory . '/' . $file; ?>"><?php echo $file; ?></a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+
+    <h3>Files:</h3>
+    <ul>
+        <?php foreach ($files as $file): ?>
+            <?php if (is_file($directory . '/' . $file)): ?>
+                <li><?php echo $file; ?> <a href="?file=<?php echo $directory . '/' . $file; ?>">View</a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+
+    <h3>Upload File:</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    <?php if (isset($_GET['file'])): ?>
+        <h3>File Content:</h3>
+        <pre><?php echo htmlentities(file_get_contents($_GET['file'])); ?></pre>
+    <?php endif; ?>
+</body>
+</html>
