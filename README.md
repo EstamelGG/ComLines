@@ -3,3 +3,10 @@ We copied the same functionality from HackTools, fixed bugs and transformed the 
 [https://estamelgg.github.io/ComLines/](https://estamelgg.github.io/ComLines/)
 
 Additionally, the website has added several new features, including "Oneliner."
+
+To execute:
+
+```
+npm install --force
+npm start
+```
