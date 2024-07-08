@@ -1,7 +1,7 @@
-export function stringToHex(str: string): string {
-    return str.split('')
+export function stringToHex(str: string, head: string=""): string {
+    return head + str.split('')
         .map(char => char.charCodeAt(0).toString(16).padStart(2, '0'))
-        .join('');
+        .join(head);
 }
 
 export function hexToString(hex: string): string {

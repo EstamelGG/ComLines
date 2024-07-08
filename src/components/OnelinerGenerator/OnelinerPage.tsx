@@ -67,9 +67,12 @@ const OneLinerGenerator = () => {
         const bash_hex = stringToHex(binaryString);
         let result1 = `echo "${bash_hex}" | xxd -r -p | bash -i`;
         let result2 = `bash -c "{echo,${bash_hex}}|{xxd,-r,-p}|{bash,-i}"`;
+        const bash_x_hex = stringToHex(binaryString, "\\x");
+        let result3 = `printf '${bash_x_hex}'|bash`;
+        let result4 = `echo -e '${bash_x_hex}'|bash`;
         // result1 = decodeURIComponent(escape(result1));
         // result2 = decodeURIComponent(escape(result2));
-        setOutput([result1,result2]);
+        setOutput([result1,result2,result3,result4]);
     };
 
     const handleBashRot47 = async (binaryString) => {
