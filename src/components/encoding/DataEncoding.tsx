@@ -11,19 +11,33 @@ const IconFont = createFromIconfontCN({
     scriptUrl: ['./iconfont.js']
 });
 
-function toHex(str: string) {
+function toHex(str: string, head: string = '') {
     var result: string = '';
     for (var i: number = 0; i < str.length; i++) {
         var hex: string = str.charCodeAt(i).toString(16).toUpperCase();
         if (hex.length === 1) {
             hex = '0' + hex;
         }
+        if (head.length != 0) {
+            hex = head + hex;
+        }
         result += hex;
     }
     return result;
 }
+
+function removeHexPrefix(hex: string): string {
+    if (hex.includes("\\x")) {
+        return hex.split("\\x").join("");
+    }
+    return hex;
+}
+
 function hex2a(hex: string) {
     var str: string = '';
+    if (hex.includes("\\x")) {
+        hex = removeHexPrefix(hex)
+    }
     for (var i: number = 0; i < hex.length; i += 2) {
         var code: number = parseInt(hex.substr(i, 2), 16);
         if (!isNaN(code)) {
@@ -80,6 +94,13 @@ const Base64Encode = () => {
                             errorMessage = "Incorrect Hex, please try something else.";
                         }
                         break;
+                    case "Hexadecimal(\\x)":
+                        try {
+                            output = toHex(binaryString, "\\x");
+                        } catch (error) {
+                            errorMessage = "Incorrect Hex, please try something else.";
+                        }
+                        break;
                 }
                 break;
             case "decode":
@@ -99,6 +120,13 @@ const Base64Encode = () => {
                         }
                         break;
                     case "Hexadecimal":
+                        try {
+                            output = hex2a(binaryString);
+                        } catch (ex) {
+                            errorMessage = "Incorrect hexadecimal, please try something else.";
+                        }
+                        break;
+                    case "Hexadecimal(\\x)":
                         try {
                             output = hex2a(binaryString);
                         } catch (ex) {
@@ -126,6 +154,8 @@ const Base64Encode = () => {
             <Menu.Item key='URL'>URL</Menu.Item>
             <Menu.Divider />
             <Menu.Item key='Hexadecimal'>Hexadecimal</Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='Hexadecimal(\\x)'>Hexadecimal(\x)</Menu.Item>
         </Menu>
     );
     document.title = `${t('data_encoder_title')} - HackTrick Checklist`;
