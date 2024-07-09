@@ -5,7 +5,6 @@ import Clipboard from 'react-clipboard.js';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
 import { utf8String } from '../utils/utf8String';
-import internal from 'stream';
 
 const { Title, Paragraph } = Typography;
 const IconFont = createFromIconfontCN({
@@ -13,7 +12,7 @@ const IconFont = createFromIconfontCN({
 });
 
 function generateRandomString(n) {
-    if (n == 0){
+    if (n == 0) {
         n = 1;
     }
     const characters = 'abcdefghijklmnopqrstuvwxyz';
@@ -68,14 +67,33 @@ function w_Carets(inputString: string) {
     }
 
     //console.log(result)
-    return result 
+    return result
 }
 
 function w_variableConcat(inputString: string) {
-    // Randomly split the input string into 3 parts
+    // Helper function to generate a random 4-character string
+    function generateRandomString(length: number) {
+        const characters = 'abcdefghijklmnopqrstuvwxyz';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+
+    // Function to find a suitable split index ensuring no trailing '^'
+    function findSplitIndex(str: string, start: number, end: number) {
+        let index;
+        do {
+            index = Math.floor(Math.random() * (end - start)) + start;
+        } while (str.charAt(index - 1) === '^');
+        return index;
+    }
+
+    // Randomly split the input string into 3 parts ensuring no trailing '^'
     const length = inputString.length;
-    const splitIndex1 = Math.floor(Math.random() * (length - 2)) + 1;
-    const splitIndex2 = Math.floor(Math.random() * (length - splitIndex1 - 1)) + splitIndex1 + 1;
+    const splitIndex1 = findSplitIndex(inputString, 1, length - 2);
+    const splitIndex2 = findSplitIndex(inputString, splitIndex1 + 1, length - 1);
 
     const part1 = inputString.substring(0, splitIndex1);
     const part2 = inputString.substring(splitIndex1, splitIndex2);
@@ -89,6 +107,38 @@ function w_variableConcat(inputString: string) {
     // Construct the result
     const result = `set ${varA}=${part1}\nset ${varB}=${part2}\nset ${varC}=${part3}\n%${varA}%%${varB}%%${varC}%`;
 
+    return result;
+}
+
+function toHex(str: string, head: string = '') {
+    var result: string = '';
+    for (var i: number = 0; i < str.length; i++) {
+        var hex: string = str.charCodeAt(i).toString(16).toUpperCase();
+        if (hex.length === 1) {
+            hex = '0' + hex;
+        }
+        if (head.length != 0) {
+            hex = head + hex;
+        }
+        result += hex;
+    }
+    return result;
+}
+
+function toOctal(str: string, head: string = '') {
+    let octalString = '';
+    for (let i = 0; i < str.length; i++) {
+        // Convert each character to its octal representation
+        const octalChar = str.charCodeAt(i).toString(8);
+        // Pad with leading zeroes to ensure each character is represented by 3 digits
+        octalString += "\\" + octalChar.padStart(3, '0');
+    }
+    return octalString.trim();
+}
+
+
+function L_quo(inputString: string) {
+    let result;
     return result;
 }
 
@@ -127,6 +177,9 @@ const CmdObfuscator = () => {
                 break;
             case "Linux":
                 // Your Linux obfuscation logic here
+                if (options.quote) {
+                    output = L_quo(output);
+                }
                 break;
         }
         setOutput(errorMessage ? "Unable to obfuscate properly: " + errorMessage : output);
@@ -141,6 +194,7 @@ const CmdObfuscator = () => {
         Carets: true,
         tab: true,
         ifs: true,
+        encoded: true,
         dollarN: true,
         variableConcat: false,
     });
@@ -153,6 +207,7 @@ const CmdObfuscator = () => {
                 Carets: true,
                 tab: true,
                 ifs: true,
+                encoded: true,
                 dollarN: true,
                 variableConcat: false,
             });
@@ -162,6 +217,7 @@ const CmdObfuscator = () => {
                 Carets: true,
                 tab: false,
                 ifs: false,
+                encoded: false,
                 dollarN: false,
                 variableConcat: true,
             });
@@ -228,6 +284,13 @@ const CmdObfuscator = () => {
                         onChange={() => setOptions({ ...options, Carets: !options.Carets })}
                     >
                         {t('Carets')}
+                    </Checkbox>
+                    <Checkbox
+                        checked={options.encoded}
+                        disabled={sysType !== 'Linux'}
+                        onChange={() => setOptions({ ...options, encoded: !options.encoded })}
+                    >
+                        Encode
                     </Checkbox>
                     <Checkbox
                         checked={options.tab}
