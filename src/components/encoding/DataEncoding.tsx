@@ -48,12 +48,12 @@ function hex2a(hex: string) {
 }
 
 
-const Base64Encode = () => {
+const TextEncoder = () => {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
     const { TextArea } = Input;
     const { t } = useTranslation();
-    const successBase64Copy = () => {
+    const successCopy = () => {
         message.success('Your payload has been copied successfully !');
     };
     const handleChange = (_name: string) => (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -229,7 +229,7 @@ const Base64Encode = () => {
                     placeholder='The results will appear here'
                 />
                 <Clipboard component='a' data-clipboard-text={output}>
-                    <Button type='primary' style={{ marginBottom: 10, marginTop: 15 }} onClick={successBase64Copy}>
+                    <Button type='primary' style={{ marginBottom: 10, marginTop: 15 }} onClick={successCopy}>
                         <CopyOutlined /> {t('misc_copy')}
                     </Button>
                 </Clipboard>
@@ -245,4 +245,4 @@ const Base64Encode = () => {
     );
 };
 
-export default Base64Encode;
+export default TextEncoder;
