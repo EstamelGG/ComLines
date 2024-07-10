@@ -4,7 +4,7 @@ import About from './About';
 import ReverseShell from './revShell/ReverseShell';
 import PHPWebShell from './revShell/PHPWebShell';
 import FileEncodeTrans from './file_transfer/ObfuscatedFiles';
-import CmdConfusion from './CmdObfuscator/CmdObfuscator';
+import CmdObfuscate from './CmdObfuscator/CmdObfuscator';
 import MSFVenom from './msfvenom/MSFBuilder'
 import SpawnTTY from './linux_terminal/TtySpawnShell'
 import linuxCmd from './commandlines/linuxCmd'
@@ -101,9 +101,9 @@ const Tabs: Array<IRouterComponent> = [
   {
     key: '11',
     icon: <IconFont type='icon-suiji' style={{ fontSize: '1.5em', marginTop: 3 }} />,
-    name: 'CmdLine Confusion',
-    path: '/CmdConfusion',
-    component: CmdConfusion
+    name: 'CmdLine Obfuscate',
+    path: '/CmdObfuscate',
+    component: CmdObfuscate
   },
   {
     key: '12',

@@ -272,15 +272,15 @@ const CmdObfuscator = () => {
         </Menu>
     );
 
-    document.title = `${t('cmd_confusion')} - HackTrick Checklist`;
+    document.title = `${t('cmd_obfuscate')} - HackTrick Checklist`;
 
     return (
         <div>
             <Title level={2} style={{ fontWeight: 'bold', margin: 15 }}>
-                {t('cmd_confusion')}
+                {t('cmd_obfuscate')}
             </Title>
             <Paragraph style={{ margin: 15 }}>
-                {t('cmd_confusion_desc')}
+                {t('cmd_obfuscate_desc')}
             </Paragraph>
             <Divider dashed />
             <div
