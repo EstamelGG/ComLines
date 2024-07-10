@@ -69,7 +69,7 @@ const HashEncode = () => {
             const algorithms = ['MD5', 'SHA1', 'SHA256', 'SHA512', 'SM3'];
             const results = await Promise.all(algorithms.map(async algorithm => {
                 const hashedValue = await handleHash(algorithm);
-                console.log(hashedValue)
+                //console.log(hashedValue)
                 return { algorithm, hashedValue };
             }));
             setHashResults(results);

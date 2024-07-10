@@ -54,7 +54,7 @@ const OneLinerGenerator = () => {
     const [loading, setLoading] = useState(false);
 
     const handleBashB64 = async (binaryString) => {
-        console.log(binaryString)
+        //console.log(binaryString)
         const bash_b64 = btoa(binaryString);
         let result1 = `echo "${bash_b64}" | base64 -d | bash`;
         let result2 = `bash -c "{echo,${bash_b64}}|{base64,-d}|{bash,-i}"`
