@@ -110,36 +110,76 @@ function w_variableConcat(inputString: string) {
     return result;
 }
 
-function toHex(str: string, head: string = '') {
-    var result: string = '';
-    for (var i: number = 0; i < str.length; i++) {
-        var hex: string = str.charCodeAt(i).toString(16).toUpperCase();
-        if (hex.length === 1) {
-            hex = '0' + hex;
+const toHex = (char) => {
+    return `\\x${char.charCodeAt(0).toString(16).padStart(2, '0')}`;
+};
+
+const toOctal = (char) => {
+    return `\\${char.charCodeAt(0).toString(8).padStart(3, '0')}`;
+};
+
+const isPunctuation = (char) => {
+    const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+    return punctuation.includes(char);
+};
+
+function L_tab(inputString: string) {
+    let encodedString = '';
+    let insideQuotes = false; // Flag to track if currently inside quotes
+
+    for (let i = 0; i < inputString.length; i++) {
+        const char = inputString[i];
+
+        // Check if character is a quote
+        if (char === '"' || char === "'") {
+            insideQuotes = !insideQuotes; // Toggle insideQuotes flag
         }
-        if (head.length != 0) {
-            hex = head + hex;
+
+        // Replace space with tab if not inside quotes
+        if (char === ' ' && !insideQuotes && Math.random() < 0.5) {
+            encodedString += '\t';
+        } else {
+            encodedString += char;
         }
-        result += hex;
     }
-    return result;
+
+    return encodedString;
 }
 
-function toOctal(str: string, head: string = '') {
-    let octalString = '';
-    for (let i = 0; i < str.length; i++) {
-        // Convert each character to its octal representation
-        const octalChar = str.charCodeAt(i).toString(8);
-        // Pad with leading zeroes to ensure each character is represented by 3 digits
-        octalString += "\\" + octalChar.padStart(3, '0');
+function L_enc(inputString: string, doHex, doOct) {
+    let encodedString = '';
+    if (inputString.length === 0) { return encodedString; }
+    if (!(doHex || doOct)) {return encodedString;}
+    for (let i = 0; i < inputString.length; i++) {
+        const char = inputString[i];
+
+        if (char === '\t' || char === ' ') {
+            // Encode \t or space characters to hex
+            if (doHex) {encodedString += toHex(char);}
+            else {encodedString += toOctal(char);}
+        } else if (isPunctuation(char)) {
+            // Encode punctuation marks to hex
+            if (doHex) {encodedString += toHex(char);}
+            else {encodedString += toOctal(char);}
+        } else {
+            // Character is not \t, space, or punctuation mark
+            if (Math.random() < 0.5) {
+                // Decide whether to encode
+                if (Math.random() < 0.3) {
+                    // Encode as hex with 30% probability
+                    if (doHex) { encodedString += toHex(char); } else {encodedString += char}
+                } else {
+                    // Encode as octal with 70% probability
+                    if (doOct) { encodedString += toOctal(char); } else {encodedString += char}
+                }
+            } else {
+                // Do not encode, just append
+                encodedString += char;
+            }
+        }
     }
-    return octalString.trim();
-}
 
-
-function L_quo(inputString: string) {
-    let result;
-    return result;
+    return `sh -c $'${encodedString}'`;
 }
 
 const CmdObfuscator = () => {
@@ -177,8 +217,11 @@ const CmdObfuscator = () => {
                 break;
             case "Linux":
                 // Your Linux obfuscation logic here
-                if (options.quote) {
-                    output = L_quo(output);
+                if (options.tab) {
+                    output = L_tab(output);
+                }
+                if (options.hexencoded || options.octencoded) {
+                    output = L_enc(output, options.hexencoded, options.octencoded);
                 }
                 break;
         }
@@ -193,9 +236,8 @@ const CmdObfuscator = () => {
         quote: true,
         Carets: true,
         tab: true,
-        ifs: true,
-        encoded: true,
-        dollarN: true,
+        hexencoded: true,
+        octencoded: true,
         variableConcat: false,
     });
 
@@ -203,12 +245,11 @@ const CmdObfuscator = () => {
         setSysType(type.key.toString());
         if (type.key === 'Linux') {
             setOptions({
-                quote: true,
-                Carets: true,
+                quote: false,
+                Carets: false,
                 tab: true,
-                ifs: true,
-                encoded: true,
-                dollarN: true,
+                hexencoded: true,
+                octencoded: true,
                 variableConcat: false,
             });
         } else if (type.key === 'WinCMD') {
@@ -216,9 +257,8 @@ const CmdObfuscator = () => {
                 quote: true,
                 Carets: true,
                 tab: false,
-                ifs: false,
-                encoded: false,
-                dollarN: false,
+                hexencoded: false,
+                octencoded: false,
                 variableConcat: true,
             });
         }
@@ -275,43 +315,17 @@ const CmdObfuscator = () => {
                 <div style={{ marginTop: 15 }}>
                     <Checkbox
                         checked={options.quote}
+                        disabled={sysType !== 'WinCMD'}
                         onChange={() => setOptions({ ...options, quote: !options.quote })}
                     >
                         {t('quotation')}
                     </Checkbox>
                     <Checkbox
                         checked={options.Carets}
+                        disabled={sysType !== 'WinCMD'}
                         onChange={() => setOptions({ ...options, Carets: !options.Carets })}
                     >
                         {t('Carets')}
-                    </Checkbox>
-                    <Checkbox
-                        checked={options.encoded}
-                        disabled={sysType !== 'Linux'}
-                        onChange={() => setOptions({ ...options, encoded: !options.encoded })}
-                    >
-                        Encode
-                    </Checkbox>
-                    <Checkbox
-                        checked={options.tab}
-                        disabled={sysType !== 'Linux'}
-                        onChange={() => setOptions({ ...options, tab: !options.tab })}
-                    >
-                        tab
-                    </Checkbox>
-                    <Checkbox
-                        checked={options.ifs}
-                        disabled={sysType !== 'Linux'}
-                        onChange={() => setOptions({ ...options, ifs: !options.ifs })}
-                    >
-                        IFS
-                    </Checkbox>
-                    <Checkbox
-                        checked={options.dollarN}
-                        disabled={sysType !== 'Linux'}
-                        onChange={() => setOptions({ ...options, dollarN: !options.dollarN })}
-                    >
-                        $n
                     </Checkbox>
                     <Checkbox
                         checked={options.variableConcat}
@@ -319,6 +333,27 @@ const CmdObfuscator = () => {
                         onChange={() => setOptions({ ...options, variableConcat: !options.variableConcat })}
                     >
                         {t('variable')}
+                    </Checkbox>
+                    <Checkbox
+                        checked={options.hexencoded}
+                        disabled={sysType !== 'Linux'}
+                        onChange={() => setOptions({ ...options, hexencoded: !options.hexencoded })}
+                    >
+                        Hex Encode
+                    </Checkbox>
+                    <Checkbox
+                        checked={options.octencoded}
+                        disabled={sysType !== 'Linux'}
+                        onChange={() => setOptions({ ...options, octencoded: !options.octencoded })}
+                    >
+                        Oct Encode
+                    </Checkbox>
+                    <Checkbox
+                        checked={options.tab}
+                        disabled={sysType !== 'Linux'}
+                        onChange={() => setOptions({ ...options, tab: !options.tab })}
+                    >
+                        Tab
                     </Checkbox>
                 </div>
 

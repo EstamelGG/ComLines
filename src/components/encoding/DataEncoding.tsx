@@ -15,6 +15,7 @@ function toHex(str: string, head: string = '') {
     var result: string = '';
     for (var i: number = 0; i < str.length; i++) {
         var hex: string = str.charCodeAt(i).toString(16).toUpperCase();
+        //console.log(hex)
         if (hex.length === 1) {
             hex = '0' + hex;
         }
@@ -74,6 +75,7 @@ const TextEncoder = () => {
         let output;
         let errorMessage;
         const binaryString = utf8String(input)
+        //console.log(binaryString)
         switch (type) {
             case "encode":
                 switch (encMode) {
