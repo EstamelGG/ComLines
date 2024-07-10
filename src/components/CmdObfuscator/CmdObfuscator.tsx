@@ -11,17 +11,6 @@ const IconFont = createFromIconfontCN({
     scriptUrl: ['./iconfont.js']
 });
 
-function generateRandomString(n) {
-    if (n == 0) {
-        n = 1;
-    }
-    const characters = 'abcdefghijklmnopqrstuvwxyz';
-    let result = '';
-    for (let i = 0; i < n; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-}
 
 function w_quo(inputString: string) {
     // curl "http://127.0.0.1:8000/test?a=kkk" -A "test asd" & whoami
@@ -233,12 +222,12 @@ const CmdObfuscator = () => {
 
     const [sysType, setSysType] = useState('Linux');
     const [options, setOptions] = useState({
-        quote: true,
-        Carets: true,
+        quote: false,
+        Carets: false,
+        variableConcat: false,
         tab: true,
         hexencoded: true,
         octencoded: true,
-        variableConcat: false,
     });
 
     const handleSysTypeList = (type: { key: React.SetStateAction<string | any> }) => {
@@ -247,19 +236,20 @@ const CmdObfuscator = () => {
             setOptions({
                 quote: false,
                 Carets: false,
+                variableConcat: false,
                 tab: true,
                 hexencoded: true,
                 octencoded: true,
-                variableConcat: false,
+                
             });
         } else if (type.key === 'WinCMD') {
             setOptions({
                 quote: true,
                 Carets: true,
+                variableConcat: true,
                 tab: false,
                 hexencoded: false,
                 octencoded: false,
-                variableConcat: true,
             });
         }
     };
