@@ -261,7 +261,8 @@ const CmdObfuscator = () => {
             <Menu.Item key='Linux'>Linux</Menu.Item>
         </Menu>
     );
-
+    const rawText = t('cmd_obfuscate_desc');
+    const paragraphs = rawText.split('<br />');
     document.title = `${t('cmd_obfuscate')} - HackTrick Checklist`;
 
     return (
@@ -270,7 +271,13 @@ const CmdObfuscator = () => {
                 {t('cmd_obfuscate')}
             </Title>
             <Paragraph style={{ margin: 15 }}>
-                {t('cmd_obfuscate_desc')}
+                <div>
+                    {paragraphs.map((paragraph, index) => (
+                        <Paragraph key={index}>
+                            {paragraph}
+                        </Paragraph>
+                    ))}
+                </div>
             </Paragraph>
             <Divider dashed />
             <div
