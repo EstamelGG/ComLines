@@ -223,7 +223,7 @@ i18n
           php_webshell_phpexplorer_desc: 'ChatGPT 编写的单文件 PHP 文件浏览器，可以浏览系统根目录下所有文件，不仅局限于 web 目录。',
           php_webshell_obfuscate: 'PHP WebShell 文件混淆',
           msfvenom_title: 'MSFVenom 命令行构造',
-          msfvenom_desc: 'MSFVenom 是 Metasploit 的命令行工具，用于生成 Metasploit 中各种类型的 shell 代码或程序。<br />本页通过可视化的方式协助用户生成 MSFVemon 命令。<br /> Payload 中，含有 /meterpreter/ 的一般是staged payload，体积大，不需要二次加载；含有 /meterpreter_ 的一般是stageless payload，体积小但需要二次加载。<br />具体可以通过执行 msfvenom -p xxxxx --list-payloads 来查看 payload 类型。<br />自定义Payload高级选项：参考 msf 中选择 Payload 后执行 advanced 命令所获得的介绍。',
+          msfvenom_desc: 'MSFVenom 是 Metasploit 的命令行工具，用于生成 Metasploit 中各种类型的 shell 代码或程序。<br />本页通过可视化的方式协助用户生成 MSFVemon 命令。<br /> Payload 中，含有 /meterpreter/ 的一般是staged payload，体积大，不需要二次加载；含有 /meterpreter_ 的一般是stageless payload，体积小但需要二次加载。<br />具体可以通过执行 msfvenom -p xxxxx --list-options 或 msfvenom --list-payloads 来查看 payload 类型。<br />自定义Payload高级选项：参考 msf 中选择 Payload 后执行 advanced 命令所获得的介绍。',
           msfvenom_cmd1: 'MSFVenom 生成后门程序:',
           msfconsole_cmd1: 'MSFConsole 监听并生成后门程序:',
           msfvenom_cmd2: '启动 MSFConsole 并加载监听器 Handler:',
