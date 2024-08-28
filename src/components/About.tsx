@@ -74,6 +74,7 @@ export default function About() {
                 <Paragraph>- {t('aboutme1')} <Link href='https://github.com/EstamelGG/' target='_blank'>EstamelGG</Link></Paragraph>
                 <Paragraph>- {t('aboutme2')} <Link href='https://github.com/sakarie9' target='_blank'>sakarie9</Link></Paragraph>
                 <Paragraph>- Github Repository: <Link href='https://github.com/EstamelGG/ComLines' target='_blank'>https://github.com/EstamelGG/ComLines</Link></Paragraph>
+                <Paragraph>- Github Blog: <Link href='https://estamelgg.github.io/SecLabBlog/' target='_blank'>https://estamelgg.github.io/SecLabBlog/</Link></Paragraph>
             </div>
         </div>
     );
